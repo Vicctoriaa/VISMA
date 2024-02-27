@@ -16,12 +16,20 @@ Aunque encendamos la máquina Aragog no podemos verla al ejecutar el comando des
 ```
 sudo nano /etc/network/interface
 ```
-
+Nos tiene que quedar como se muestra la imagen.
 ![Captura de pantalla 2024-02-27 193951](https://github.com/Vicctoriaa/VISMA/assets/153718557/44a1151b-10f4-4293-9d0d-6758bdec6e69)
 
+En caso de que queramos saber que hemos puesto en la interface podemos utilizar el siguiente comando:
+
 ```
-cd AutoBspwm
+cat /etc /network/interface
 ```
+
+Reiniciamos la maquina, y nos dirigimos a nuestra maquina principal es importante tener la Aragog encendida para que nos encuentre la ip, para saber que ip tiene escanearemos la red poniendo el siguiente comando:
+```
+arp-scan -I ens33 –localnet 
+```
+
 ```
 chmod +x AutoInstall.sh
 ```
