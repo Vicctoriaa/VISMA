@@ -17,7 +17,8 @@ Aunque encendamos la máquina Aragog no podemos verla al ejecutar el comando des
 sudo nano /etc/network/interface
 ```
 ```
-![](raf,360x360,075,t,fafafa_ca443f4786.jpg)
+```
+![](https://github.com/ZLCube/AutoBspwm/blob/main/pics/menu.png)
 
 cd AutoBspwm
 ```
