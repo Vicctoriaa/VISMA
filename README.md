@@ -20,9 +20,19 @@ Una vez explicado cómo funciona el pivoting vamos a explicar cómo hemos sido c
 |_  _| |_  _||_   _|.' ____ \ |_   \  /   _|     / \      
   \ \   / /    | |  | (___ \_|  |   \/   |      / _ \     
    \ \ / /     | |   _.____`.   | |\  /| |     / ___ \    
-    \ ' /     _| |_ | \____) | _| |_\/_| |_  _/ /   \ \_  
+    \ ' /     _| |_ | \____) | _| |_\/_| |_  _/ /   \ \_             
      \_/     |_____| \______.'|_____||_____||____| |____| 
-
+____     ___ ____  ____  ___       ___      _      
+`Mb(     )d' `MM' 6MMMMb\`MMb     dMM'     dM.     
+ YM.     ,P   MM 6M'    ` MMM.   ,PMM     ,MMb     
+ `Mb     d'   MM MM       M`Mb   d'MM     d'YM.    
+  YM.   ,P    MM YM.      M YM. ,P MM    ,P `Mb    
+  `Mb   d'    MM  YMMMMb  M `Mb d' MM    d'  YM.   
+   YM. ,P     MM      `Mb M  YM.P  MM   ,P   `Mb   
+   `Mb d'     MM       MM M  `Mb'  MM   d'    YM.  
+    YM,P      MM       MM M   YP   MM  ,MMMMMMMMb  
+    `MM'      MM L    ,M9 M   `'   MM  d'      YM. 
+     YP      _MM_MYMMMM9 _M_      _MM_dM_     _dMM_
 
 
 
