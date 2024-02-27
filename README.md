@@ -2,14 +2,14 @@
 
 Este es un script de instalación de BSPWM para kali o parrot linux, cabe aclarar que puede funcionar en otras distribuciones base debian sin embargo en las unicas que se mantiene estable y las cuales les daremos soporte será Kali linux y Parrot linux
 
-## [Instalación]
+## Maquina aragog
 (AVISO: No ejecutes el script como ROOT o SUDO, el script te pedirá tu contraseña por cuenta propia, si lo ejecutas como root la instalación se detendrá)
+(IMPORTANTE: la ip que utilizamos no sera la misma que la de tu red por eso mismo deberás estar atento a esos puntos, igualmente lo indicamos)
 
-Si necesitas más ayuda con esta instalación aquí tienes un video tutorial.
+Una vez explicado cómo funciona el pivoting vamos a explicar cómo hemos sido capaces de comprometer un laboratorio con 6 máquinas (1 Windows y 5 linux) donde hay 4 redes internas configuradas. Aunque antes de ello debemos preparar el entorno:
 
-TUTORIAL: [![TUTORIAL](https://www.youtube.com/watch?v=lbsN90DKNAQ)]
-
-Aunque encendamos la máquina Aragog no podemos verla al ejecutar el comando desde la máquina atacante (como root) “arp -I ens33 –localnet”, esto ocurre porque dentro de la máquina las interfaces están configuradas para virtualbox. Para modificar esto debemos iniciar la maquina y en grub picar la tecla “e”, dentro de aquí buscamos el texto “ro” y lo reemplazamos por la siguiente línea “rw init=/bin/bash”. Lo que nos permitirá este comando es acceder como root a la máquina sin contraseña. Una vez hemos escrito el comando hacemos click en “F10”.
+Empezamos con la máquina Aragog, ya que es la que se encuentra en nuestra red. Primero debemos encontrarla y para ello necesiatremos convertirnos en root.
+Si quieres aprender a vulnerarla sigue los pasos como se indican.
 
 1.- RED
 
@@ -36,99 +36,52 @@ arp-scan -I ens33 –localnet | grep "VMware, Inc."
 ![segunda cap_arp scan](https://github.com/Vicctoriaa/VISMA/assets/153718557/0adfdaf6-8c45-4ebb-8f52-129be138e098)
 
 
+2.-ATAQUE
+
+Revisaremos si la maquina se encunetra activa o si hay algun firewall bloqueando las trazas ICMP, para ello debermos hacer un ping. 
+
 ```
-./AutoInstall.sh
+ping -c 1 IP_DE_LA_ARAGOG
 ```
-2.- Selecciona tu sistema operativo, 1 kali 2 parrot.
+![tercera cap_ping](https://github.com/Vicctoriaa/VISMA/assets/153718557/a16ed55c-d8de-43e8-aeab-ed765bd07e2c)
+Una vez le hemos mandado un ping, podemos revisar que la máquina esta encendida, también vemos que el ttl = 64 por lo que es una máquina Linux, si el ttl es “=” o menor a 64 quiere decir, que probablemente estamos ante una máquina Linux. 
+Podemos observar también que ningún paquete a sido descartado, entonces ya sabemos que esta en el mismo segmento de red y esta preparada para ser vulnerada.
 
-![](https://github.com/ZLCube/AutoBspwm/blob/main/pics/menu.png)
-
-3.- Nos va a saltar un theme selector NO SELECCIONES NADA AUN ignoralo
-
-![](https://github.com/ZLCube/AutoBspwm/blob/main/pics/themes.png)
-
-4.- Una vez nos salga la pantalla de select theme entonces podremos elegir cualquier tema del paso 3
-
-![](https://github.com/ZLCube/AutoBspwm/blob/main/pics/select.png)
-
-5.- Este menu es el rofi theme selector, para navegar entre los themes podemos usar flecha hacia arriba + enter, para seleccionar el que nos guste apretaremos alt + a.
-
-![](https://github.com/ZLCube/AutoBspwm/blob/main/pics/rofi.png)
-
-En caso de querer cambiarlo nuevamente podemos escribir en consola ```rofi -theme selector```
-
-6.- Por ultimo la maquina se va a rebootear automaticamente, aquí cambiaremos de sesión arriba a la derecha cambiando de entorno default a BSPWM
-
-![](https://github.com/ZLCube/AutoBspwm/blob/main/pics/bspwm.png)
-
-7.- Wallpaper
-
-Para cambiar el wallpaper usaremos el comando
-``` nano .config/bspwm/bspwmrc ``` y renombrando el apartado wallpaper con el nombre del wallpaper de tu eleccion en la carpeta ```~/.config/Wallpaper/```.
-
-La configuración es la misma que el entorno de s4vitar al menos en cuanto a shortcuts y terminal se refiere.
-
-8.- Nvim
-
-Esta no esta incluida en el scripts
-
-
-
-
-
-
-9.- En caso de unicamente requerir los dotfiles recuerda que los componentes basicos son bspwm, picom, pollybar, sxhkd, hacknerf fonts
+Una vez tengamos esa información, deberemos hacer un escaneo de puertos para ello utilizaremos la herramienta nmap, especializada en escanear puertos, pondremos parametros ya que queremos solamente cosas especificas. (si quieres saber sobre los parametros entra aqui:.....)
 ```
-  ____   _____ _______          ____  __    _____ _                _             _       
- |  _ \ / ____|  __ \ \        / /  \/  |  / ____| |              | |           | |      
- | |_) | (___ | |__) \ \  /\  / /| \  / | | (___ | |__   ___  _ __| |_ ___ _   _| |_ ___ 
- |  _ < \___ \|  ___/ \ \/  \/ / | |\/| |  \___ \| '_ \ / _ \| '__| __/ __| | | | __/ __|
- | |_) |____) | |      \  /\  /  | |  | |  ____) | | | | (_) | |  | || (__| |_| | |_\__ \
- |____/|_____/|_|       \/  \/   |_|  |_| |_____/|_| |_|\___/|_|   \__\___|\__,_|\__|___/
-                                                                                         
+nmap -sS -p --open -T5 --min-rate 5000 IP_DE_LA_ARAGOG -n -Pn -vvv -oG
+```
+![4 cap_nmap1](https://github.com/Vicctoriaa/VISMA/assets/153718557/9f0cecac-277b-46ab-96c7-0a7fdd210233)
 
-windows + enter abre terminal 
-windows + w cierra terminal
-windows + d abre el buscador de aplicaciones
-windows hold mover libremente la ventana
-windows clic derecho reescalar libremente la ventana
-windows + alt + flechas escalar ventana
-windows + ctl + flechas mover ventana
-control + shift + t abre pestaña en terminal
-control shift alt t renombrar pestaña de terminal
-control shift w cerrar pestaña de terminal
-windows + "1,2,3,4,5,6,7,8,9,0" cambiar de escritorio
-windows + shift + "1,2,3,4,5,6,7,8,9,0" cambiar de escritorio la ventana actual al escritorio seleccionado
+![5 cap_nmap2](https://github.com/Vicctoriaa/VISMA/assets/153718557/561f947e-9bc5-43f1-8251-a253e07cf9fe)
 
 
-Los dot files los puedes modificar en las siguientes rutas.
 
-~/.config/bspwm/bspwmrc
-~/.config/polybar/
-~/.config/picom/picom.conf
-~/.config/sxhkd/sxhkdrc
+
+
+
+
+
+En caso de que queramos saber que hemos puesto en la interface podemos utilizar el siguiente comando:
+
+```
+cat /etc /network/interface
 ```
 
-## [ZLCube theme]
-![](https://github.com/ZLCube/AutoBspwm/blob/main/pics/Screenshot%202023-08-26%20151856.png)
-## [Parrot theme]
-![](https://github.com/ZLCube/AutoBspwm/blob/main/pics/Screenshot_2023-07-30_130115.png)
-## [Pacman theme]
-![](https://github.com/ZLCube/KaliBspwm/blob/main/Design%20preview%20(Useless)/Picture1.PNG)
-## [Pink theme]
-![](https://github.com/ZLCube/AutoBspwm/blob/main/pics/Screenshot%202023-09-27%20225812.png)
-## [S4vi theme]
-![](https://github.com/ZLCube/AutoBspwm/blob/main/pics/Screenshot%202023-09-28%20002751.png)
+Reiniciamos la maquina, y nos dirigimos a nuestra maquina principal es importante tener la Aragog encendida para que nos encuentre la ip, para saber que ip tiene escanearemos la red poniendo el siguiente comando:
+```
+arp-scan -I ens33 –localnet 
+```
+Si solamenente queremos buscar la maquina, y estamos usando VmWare podremos añadirle el comando grep y entre comillas pondremos lo siguiente:
+```
+arp-scan -I ens33 –localnet | grep "VMware, Inc."
+```
+![segunda cap_arp scan](https://github.com/Vicctoriaa/VISMA/assets/153718557/0adfdaf6-8c45-4ebb-8f52-129be138e098)
 
-UNA MENCION HONORIFICA A Mr. Pr1ngl3s, y a xjacksx por su gran colaboración y autorizacion de usar sus repositorios así como a S4vitar por la configuración del entorno, te dejo el enlace a los perfiles de cada uno de ellos.
 
-xJacksx https://github.com/xJackSx/
 
-Mr.Pr1ngl3s https://github.com/MrPr1ngl3s
 
-S4vitar https://github.com/s4vitar
 
-Si necesitas más ayuda con la configuración pica en la imagen que te lleva a mi tutorial en mi canal de YT:
 
 
 #===============================MIS-REDES==================================#
