@@ -1,4 +1,5 @@
-- [VISMA 1](#VISMA)
+- [☰ Menú](#menú) 
+  - [VISMA 1](#VISMA-1)
 
 # VISMA 
 Este es un script de instalación de BSPWM para kali o parrot linux, cabe aclarar que puede funcionar en otras distribuciones base debian sin embargo en las unicas que se mantiene estable y las cuales les daremos soporte será Kali linux y Parrot linux
