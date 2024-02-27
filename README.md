@@ -29,10 +29,13 @@ Reiniciamos la maquina, y nos dirigimos a nuestra maquina principal es important
 ```
 arp-scan -I ens33 –localnet 
 ```
+Si solamenente queremos buscar la maquina, y estamos usando VmWare podremos añadirle el comando grep y entre comillas pondremos lo siguiente:
+```
+arp-scan -I ens33 –localnet | grep "VMware, Inc."
+```
+![Uploading segunda cap_arp scan.png…]()
 
-```
-chmod +x AutoInstall.sh
-```
+
 ```
 ./AutoInstall.sh
 ```
