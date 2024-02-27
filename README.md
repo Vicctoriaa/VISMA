@@ -4,6 +4,7 @@ Este es un script de instalación de BSPWM para kali o parrot linux, cabe aclara
 
 ## Maquina aragog
 (AVISO: No ejecutes el script como ROOT o SUDO, el script te pedirá tu contraseña por cuenta propia, si lo ejecutas como root la instalación se detendrá)
+
 (IMPORTANTE: la ip que utilizamos no sera la misma que la de tu red por eso mismo deberás estar atento a esos puntos, igualmente lo indicamos)
 
 Una vez explicado cómo funciona el pivoting vamos a explicar cómo hemos sido capaces de comprometer un laboratorio con 6 máquinas (1 Windows y 5 linux) donde hay 4 redes internas configuradas. Aunque antes de ello debemos preparar el entorno:
@@ -11,7 +12,7 @@ Una vez explicado cómo funciona el pivoting vamos a explicar cómo hemos sido c
 Empezamos con la máquina Aragog, ya que es la que se encuentra en nuestra red. Primero debemos encontrarla y para ello necesiatremos convertirnos en root.
 Si quieres aprender a vulnerarla sigue los pasos como se indican.
 
-1.- RED
+# 1.- RED
 
 ```
 sudo nano /etc/network/interface
@@ -36,7 +37,7 @@ arp-scan -I ens33 –localnet | grep "VMware, Inc."
 ![segunda cap_arp scan](https://github.com/Vicctoriaa/VISMA/assets/153718557/0adfdaf6-8c45-4ebb-8f52-129be138e098)
 
 
-2.-ATAQUE
+# 2.-ATAQUE
 
 Revisaremos si la maquina se encunetra activa o si hay algun firewall bloqueando las trazas ICMP, para ello debermos hacer un ping. 
 
@@ -69,21 +70,21 @@ Si buscamos la ip de la máquina (192.168.1.62) con el puerto 80 encontramos lo 
 
 De primeras no vemos nada que nos llame la atención así que vamos a ver el código fuente para ver si hay algo interesante, para ello hacermos click en ctrl + u
 
-En caso de que queramos saber que hemos puesto en la interface podemos utilizar el siguiente comando:
+![7 cap_ctrl_U_web](https://github.com/Vicctoriaa/VISMA/assets/153718557/1aee44e7-258b-4fa8-8144-20a09f3a22a8)
 
+Y no encontramos nada. Lo siguiente a probar sería los subdominios, pero aquí no tenemos dominio ni servidor dns al que preguntarle los posibles subdominios o subdominios indexados por el certificado ssl. Así que haremos fuzzing, esto nos servirá para poder determinar si se encuentra algún directorio escondido dentro del servidor web. Para ello utilizaremos gobuster, aunque también podemos utilizar herramientas como fuff o wfuzz.
+( En caso que no este instalado puedes ver como se instala aqui ...... y para saber que es cada parámetro entra aquí .......)
 ```
-cat /etc /network/interface
+gobuster dir -u http://IP_DE_LA_ARAGOG:80 -w /usr/share/Discovery/Web-Content/directory-list-2.3-medium.txt -t 400 -x html,php,jpg,png,png,txt,docx,pdf 2>/dev/null
 ```
+![8 cap_gobuster1](https://github.com/Vicctoriaa/VISMA/assets/153718557/36899e51-7b8a-491c-96d1-059992d80b2d)
 
-Reiniciamos la maquina, y nos dirigimos a nuestra maquina principal es importante tener la Aragog encendida para que nos encuentre la ip, para saber que ip tiene escanearemos la red poniendo el siguiente comando:
-```
-arp-scan -I ens33 –localnet 
-```
-Si solamenente queremos buscar la maquina, y estamos usando VmWare podremos añadirle el comando grep y entre comillas pondremos lo siguiente:
-```
-arp-scan -I ens33 –localnet | grep "VMware, Inc."
-```
-![segunda cap_arp scan](https://github.com/Vicctoriaa/VISMA/assets/153718557/0adfdaf6-8c45-4ebb-8f52-129be138e098)
+
+
+
+
+
+
 
 
 
@@ -93,17 +94,17 @@ arp-scan -I ens33 –localnet | grep "VMware, Inc."
 
 #===============================MIS-REDES==================================#
 
-Practicamente ZLCube en todos lados
+Practicamente VISMA en todos lados
 
-https://www.youtube.com/@zlcube9936
+https://www.youtube.com/
 
-https://www.twitter.com/zlcube
+https://www.twitter.com/
 
-https://www.tiktok.com/@zlcube
+https://www.tiktok.com/
 
-https://www.twitch.tv/zlcube
+https://www.twitch.tv/
 
-https://www.instagram.com/zlcube
+https://www.instagram.com/
 
 #=========================================================================#
 
