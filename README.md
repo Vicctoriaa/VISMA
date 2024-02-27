@@ -16,27 +16,7 @@ El pivoting es una técnica utilizada en la ciberseguridad donde utilizamos una 
 
 Una vez explicado cómo funciona el pivoting vamos a explicar cómo hemos sido capaces de comprometer un laboratorio con 6 máquinas (1 Windows y 5 linux) donde hay 4 redes internas configuradas. Aunque antes de ello debemos preparar el entorno.
 
-
-                    
-               .                                                                                    
-     .                              ###,   .....             ////            
-                                      ######(, ....    %###%%#(              
-                                       ( (((#((.  ....####%%&&                
-                                     ...# (((((.....  %%&&%%%                
-                 .                  ...   /((#/((  .(((##(# ...                                     
-                                    ....,    ///(//*//////   ,..                 
-                                       ..,     ****/***//,    ..               
-                                        ...       .*,//,,    ...                 
-                                          ...,            ,,...              
-                                   .         ... / //.......         .    
-                                               ..//(..                         
-                                                  /                       
-                                                                                                    
-                                                                          
-                                                                         
-                                                                    
-                                                                                                    
-
+![LOGO](https://github.com/Vicctoriaa/VISMA/assets/153718557/709a7a76-0ddf-425d-8e21-fc5574c472fb)
 
 
 
