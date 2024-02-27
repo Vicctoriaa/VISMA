@@ -3,9 +3,11 @@
 Este es un script de instalación de BSPWM para kali o parrot linux, cabe aclarar que puede funcionar en otras distribuciones base debian sin embargo en las unicas que se mantiene estable y las cuales les daremos soporte será Kali linux y Parrot linux
 
 ## Maquina aragog
-(AVISO: No ejecutes el script como ROOT o SUDO, el script te pedirá tu contraseña por cuenta propia, si lo ejecutas como root la instalación se detendrá)
+> [!NOTE]
+> Sigue los pasos tal y como indican, hay palabras con un numero que te llevan a una definición de la palabra, en caso de que haya alguna que no sepas debereas buscar información tu mismo/a. Este manual no lleva nada que sea demasiado complicado o que la información no aparezca por internet.
 
-(IMPORTANTE: la ip que utilizamos no sera la misma que la de tu red por eso mismo deberás estar atento a esos puntos, igualmente lo indicamos)
+> [!IMPORTANT]
+> la ip que utilizamos no sera la misma que la de tu red por eso mismo deberás estar atento a esos puntos, igualmente lo indicamos
 
 Una vez explicado cómo funciona el pivoting vamos a explicar cómo hemos sido capaces de comprometer un laboratorio con 6 máquinas (1 Windows y 5 linux) donde hay 4 redes internas configuradas. Aunque antes de ello debemos preparar el entorno:
 
