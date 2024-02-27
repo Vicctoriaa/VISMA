@@ -2,7 +2,7 @@
 Empezamos con la máquina Aragog, ya que es la que se encuentra en nuestra red. Primero debemos encontrarla y para ello necesiatremos convertirnos en root.
 Si quieres aprender a vulnerarla sigue los pasos como se indican.
 
-## 1. RED
+# 1. RED
 
 ```
 sudo nano /etc/network/interface
@@ -30,7 +30,7 @@ arp-scan -I ens33 –localnet | grep "VMware, Inc."
 ‎ ‎ ‎ ‎ 
 ‎ 
 ‎ 
-## 2. ATAQUE
+# 2. ATAQUE
 
 Revisaremos si la maquina se encunetra activa o si hay algun firewall bloqueando las trazas ICMP, para ello debermos hacer un `ping`. 
 
