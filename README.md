@@ -33,7 +33,7 @@ Si solamenente queremos buscar la maquina, y estamos usando VmWare podremos aña
 ```
 arp-scan -I ens33 –localnet | grep "VMware, Inc."
 ```
-![Uploading segunda cap_arp scan.png…]()
+![segunda cap_arp scan](https://github.com/Vicctoriaa/VISMA/assets/153718557/0adfdaf6-8c45-4ebb-8f52-129be138e098)
 
 
 ```
