@@ -89,16 +89,23 @@ Primero en busca de comentarios de algún desarrollador que nos de información 
 
 ![10 cap_CSS](https://github.com/Vicctoriaa/VISMA/assets/153718557/aff25656-3d4f-40ba-9d19-e90a5d6bd107)
 
+Ya que llama los estilos desde un dominio, para poder resolverlo debemos añadir el dominio wordpress.aragog.hogwarts y aragog.hogwarts, para que nuestro pc sea capaz de resolver el dominio
+```
+sudo nano /etc/hosts
+```
+![11 cap_poner dominio CSS](https://github.com/Vicctoriaa/VISMA/assets/153718557/7465ef38-2401-4c8a-ba4b-d621605aa587)
+
+Ahora si buscamos el dominio “wordpress.aragog.hogwarts” en el navegador nos resuelve la web correcamente
+
+Esto es lo que nos reporta wappalyzer[^3], sobre la web
+
+![12_wappalyzer](https://github.com/Vicctoriaa/VISMA/assets/153718557/d465f016-a542-4141-a915-3378df7a6d5a)
+
+Podemos ver que esta pagina tiene wordpress, si intentamos entrar en el directorio “wp-content” para ver si tenemos directory listing, para poder tener directory listing en una web se deben cumplir los siguientes requisitos:
+* No contiene un archivo llamado “index.html”
+* Y no contiene un archivo “.htacces”, este archivo sirve para bloquear el acceso al directory listing como tal.
 
 
-
-
-
-
-
-
-[^1]: cuenta con Wordpress Comenter y Wp-Admin que es un usuario muy común de wordpress aparte de que pone “Proudly powered by Wordpress”.
-[^2]: lenguaje que maneja el diseño y presentación de las páginas web, es decir, cómo lucen cuando un usuario las visita.
 
 
 #===============================MIS-REDES==================================#
@@ -117,3 +124,6 @@ https://www.instagram.com/
 
 #=========================================================================#
 
+[^1]: cuenta con Wordpress Comenter y Wp-Admin que es un usuario muy común de wordpress aparte de que pone “Proudly powered by Wordpress”.
+[^2]: lenguaje que maneja el diseño y presentación de las páginas web, es decir, cómo lucen cuando un usuario las visita.
+[^3]: inspecciona los datos internos de las webs, identificando la programación que se ha utilizado para desarrollarla, también es una extensión que hemos de añadir buscandola directamente desde internet. 
