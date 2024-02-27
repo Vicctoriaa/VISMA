@@ -44,6 +44,7 @@ Revisaremos si la maquina se encunetra activa o si hay algun firewall bloqueando
 ping -c 1 IP_DE_LA_ARAGOG
 ```
 ![tercera cap_ping](https://github.com/Vicctoriaa/VISMA/assets/153718557/a16ed55c-d8de-43e8-aeab-ed765bd07e2c)
+
 Una vez le hemos mandado un ping, podemos revisar que la máquina esta encendida, también vemos que el ttl = 64 por lo que es una máquina Linux, si el ttl es “=” o menor a 64 quiere decir, que probablemente estamos ante una máquina Linux. 
 Podemos observar también que ningún paquete a sido descartado, entonces ya sabemos que esta en el mismo segmento de red y esta preparada para ser vulnerada.
 
@@ -53,14 +54,20 @@ nmap -sS -p --open -T5 --min-rate 5000 IP_DE_LA_ARAGOG -n -Pn -vvv -oG
 ```
 ![4 cap_nmap1](https://github.com/Vicctoriaa/VISMA/assets/153718557/9f0cecac-277b-46ab-96c7-0a7fdd210233)
 
-![5 cap_nmap2](https://github.com/Vicctoriaa/VISMA/assets/153718557/561f947e-9bc5-43f1-8251-a253e07cf9fe)
+Una vez hemos acabado con el escaneo de puertos ahora debemos detectar que servicios o versiones están corriendo en estos puertos, para ello una vez tenemos los puertos abiertos copiados a la clipboard
+```
+nmap -sCV -p22,80 IP_DE_LA_ARAGOG -oN portServices
+```
 
+![5 cap_nmap2](https://github.com/Vicctoriaa/VISMA/assets/153718557/801bb9f3-6416-44bd-a619-4440f6e2bd8a)
 
+hecho el escaneo encontramos que el puerto 22 está corriendo ssh, pero como no tenemos ninguna clave de momento no podemos hacer nada y un ataque de fuerza bruta tardaríamos bastante, por lo que lo dejamos como ultima opción. Encontramos que en el puerto 80 está corriendo apache, lo que quiere decir que hay una web corriendo por detrás.
 
+Si buscamos la ip de la máquina (192.168.1.62) con el puerto 80 encontramos lo siguiente
 
+![6 cap_ipnavegadorWEB](https://github.com/Vicctoriaa/VISMA/assets/153718557/7f000f25-3155-43a7-8403-493871ef5ca3)
 
-
-
+De primeras no vemos nada que nos llame la atención así que vamos a ver el código fuente para ver si hay algo interesante, para ello hacermos click en ctrl + u
 
 En caso de que queramos saber que hemos puesto en la interface podemos utilizar el siguiente comando:
 
