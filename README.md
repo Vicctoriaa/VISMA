@@ -12,7 +12,7 @@ Una vez explicado cómo funciona el pivoting vamos a explicar cómo hemos sido c
 Empezamos con la máquina Aragog, ya que es la que se encuentra en nuestra red. Primero debemos encontrarla y para ello necesiatremos convertirnos en root.
 Si quieres aprender a vulnerarla sigue los pasos como se indican.
 
-# 1.- RED
+## 1. RED
 
 ```
 sudo nano /etc/network/interface
@@ -26,20 +26,21 @@ En caso de que queramos saber que hemos puesto en la interface podemos utilizar 
 cat /etc /network/interface
 ```
 
-Reiniciamos la maquina, y nos dirigimos a nuestra maquina principal es importante tener la Aragog encendida para que nos encuentre la ip, para saber que ip tiene escanearemos la red poniendo el siguiente comando:
+Reiniciamos la maquina, y nos dirigimos a nuestra maquina principal es importante tener la Aragog encendida para que nos encuentre la ip, para saber que ip tiene escanearemos la red 
+poniendo el siguiente comando:
 ```
 arp-scan -I ens33 –localnet 
 ```
-Si solamenente queremos buscar la maquina, y estamos usando VmWare podremos añadirle el comando grep y entre comillas pondremos lo siguiente:
+Si solamenente queremos buscar la maquina, y estamos usando VmWare podremos añadirle el comando `grep` y entre comillas pondremos lo siguiente:
 ```
 arp-scan -I ens33 –localnet | grep "VMware, Inc."
 ```
 ![segunda cap_arp scan](https://github.com/Vicctoriaa/VISMA/assets/153718557/0adfdaf6-8c45-4ebb-8f52-129be138e098)
 
 
-# 2.-ATAQUE
+## 2. ATAQUE
 
-Revisaremos si la maquina se encunetra activa o si hay algun firewall bloqueando las trazas ICMP, para ello debermos hacer un ping. 
+Revisaremos si la maquina se encunetra activa o si hay algun firewall bloqueando las trazas ICMP, para ello debermos hacer un `ping`. 
 
 ```
 ping -c 1 IP_DE_LA_ARAGOG
@@ -79,6 +80,14 @@ gobuster dir -u http://IP_DE_LA_ARAGOG:80 -w /usr/share/Discovery/Web-Content/di
 ```
 ![8 cap_gobuster1](https://github.com/Vicctoriaa/VISMA/assets/153718557/36899e51-7b8a-491c-96d1-059992d80b2d)
 
+Una vez finalizado el escaneo encontramos que el directorio “/blog” y “/javascript” Nos redirigen haca otro lado mientoras “/server-status” nos devuelve un 403 (el servidor recibe la petición pero deniega el acceso a la acción), si entramos a java script, nos dará un error llamado FORBIDDEN, en cambio si entramos a blog vemos la web 
+
+![9 cap_web blog](https://github.com/Vicctoriaa/VISMA/assets/153718557/30f6ed9f-d43e-412f-b8f2-8c3b7a7ff6cf)
+
+Podemos observar que es una páquina Wordpress[^1], pero por alguna razón la web no esta cargando los estilos “css”[^2] , por lo que antes vamos a revisar el código fuente.
+Primero en busca de comentarios de algún desarrollador que nos de información valiosa y después buscaremos en el "head" para ver que ocurre y poque no llama bien al estilo css, como hicimos anteriormente, ctrl + u
+
+![10 cap_CSS](https://github.com/Vicctoriaa/VISMA/assets/153718557/aff25656-3d4f-40ba-9d19-e90a5d6bd107)
 
 
 
@@ -88,8 +97,8 @@ gobuster dir -u http://IP_DE_LA_ARAGOG:80 -w /usr/share/Discovery/Web-Content/di
 
 
 
-
-
+[^1] cuenta con Wordpress Comenter y Wp-Admin que es un usuario muy común de wordpress aparte de que pone “Proudly powered by Wordpress”.
+[^2] lenguaje que maneja el diseño y presentación de las páginas web, es decir, cómo lucen cuando un usuario las visita.
 
 
 #===============================MIS-REDES==================================#
