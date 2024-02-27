@@ -38,6 +38,8 @@ arp-scan -I ens33 –localnet | grep "VMware, Inc."
 ![segunda cap_arp scan](https://github.com/Vicctoriaa/VISMA/assets/153718557/0adfdaf6-8c45-4ebb-8f52-129be138e098)
 
 
+
+
 ## 2. ATAQUE
 
 Revisaremos si la maquina se encunetra activa o si hay algun firewall bloqueando las trazas ICMP, para ello debermos hacer un `ping`. 
@@ -73,14 +75,14 @@ De primeras no vemos nada que nos llame la atención así que vamos a ver el có
 
 ![7 cap_ctrl_U_web](https://github.com/Vicctoriaa/VISMA/assets/153718557/1aee44e7-258b-4fa8-8144-20a09f3a22a8)
 
-Y no encontramos nada. Lo siguiente a probar sería los subdominios, pero aquí no tenemos dominio ni servidor dns al que preguntarle los posibles subdominios o subdominios indexados por el certificado ssl. Así que haremos fuzzing, esto nos servirá para poder determinar si se encuentra algún directorio escondido dentro del servidor web. Para ello utilizaremos gobuster, aunque también podemos utilizar herramientas como fuff o wfuzz.
+Y no encontramos nada. Lo siguiente a probar sería los subdominios, pero aquí no tenemos dominio ni servidor dns al que preguntarle los posibles subdominios o subdominios indexados por el certificado ssl. Así que haremos fuzzing, esto nos servirá para poder determinar si se encuentra algún directorio escondido dentro del servidor web. Para ello utilizaremos `gobuster`, aunque también podemos utilizar herramientas como `fuff` o `wfuzz`.
 ( En caso que no este instalado puedes ver como se instala aqui ...... y para saber que es cada parámetro entra aquí .......)
 ```
 gobuster dir -u http://IP_DE_LA_ARAGOG:80 -w /usr/share/Discovery/Web-Content/directory-list-2.3-medium.txt -t 400 -x html,php,jpg,png,png,txt,docx,pdf 2>/dev/null
 ```
 ![8 cap_gobuster1](https://github.com/Vicctoriaa/VISMA/assets/153718557/36899e51-7b8a-491c-96d1-059992d80b2d)
 
-Una vez finalizado el escaneo encontramos que el directorio “/blog” y “/javascript” Nos redirigen haca otro lado mientoras “/server-status” nos devuelve un 403 (el servidor recibe la petición pero deniega el acceso a la acción), si entramos a java script, nos dará un error llamado FORBIDDEN, en cambio si entramos a blog vemos la web 
+Una vez finalizado el escaneo encontramos que el directorio “/blog” y “/javascript” Nos redirigen haca otro lado mientras “/server-status” nos devuelve un 403 (el servidor recibe la petición pero deniega el acceso a la acción), si entramos a java script, nos dará un error llamado FORBIDDEN, en cambio si entramos a blog vemos la web 
 
 ![9 cap_web blog](https://github.com/Vicctoriaa/VISMA/assets/153718557/30f6ed9f-d43e-412f-b8f2-8c3b7a7ff6cf)
 
@@ -89,7 +91,7 @@ Primero en busca de comentarios de algún desarrollador que nos de información 
 
 ![10 cap_CSS](https://github.com/Vicctoriaa/VISMA/assets/153718557/aff25656-3d4f-40ba-9d19-e90a5d6bd107)
 
-Ya que llama los estilos desde un dominio, para poder resolverlo debemos añadir el dominio wordpress.aragog.hogwarts y aragog.hogwarts, para que nuestro pc sea capaz de resolver el dominio
+Ya que llama los estilos desde un dominio, para poder resolverlo debemos añadir el dominio wordpress.aragog.hogwarts y aragog.hogwarts, para que nuestro pc sea capaz de resolver el dominio, en el siguiente directorio:
 ```
 sudo nano /etc/hosts
 ```
@@ -101,9 +103,23 @@ Esto es lo que nos reporta wappalyzer[^3], sobre la web
 
 ![12_wappalyzer](https://github.com/Vicctoriaa/VISMA/assets/153718557/d465f016-a542-4141-a915-3378df7a6d5a)
 
-Podemos ver que esta pagina tiene wordpress, si intentamos entrar en el directorio “wp-content” para ver si tenemos directory listing, para poder tener directory listing en una web se deben cumplir los siguientes requisitos:
+Podemos ver que esta pagina tiene wordpress, si intentamos entrar en el directorio “wp-content” 
+```
+http://wordpress.aragog.hogwarts/blog/wp-content/
+```
+
+Para ver si tenemos directory listing, para poder tener directory listing en una web se deben cumplir los siguientes requisitos:
 * No contiene un archivo llamado “index.html”
 * Y no contiene un archivo “.htacces”, este archivo sirve para bloquear el acceso al directory listing como tal.
+
+Como lo que queríamos era buscar plugions de wordpress que fuesen vulnerables probaremos con otra herramienta llamada `WPscan`[^4]
+```
+-wpscan --url http://wordpress.aragog.hogwarts/blog/ --enumerate u,vp --plugin-detection agressive --api-token=$wpapi
+```
+Podemos encontrar que ha detectado varios plugins con vulnerabilidades, pero de todos esos el que mas me llama la atención es uno que me permite subir archivos de sin autenticarme y que de ahí puede derivar en una ejecución remota de comandos.[mas información]([https://pages.github.com/](https://wpscan.com/vulnerability/e528ae38-72f0-49ff-9878-922eff59ace9/))
+
+
+
 
 
 
@@ -127,3 +143,4 @@ https://www.instagram.com/
 [^1]: cuenta con Wordpress Comenter y Wp-Admin que es un usuario muy común de wordpress aparte de que pone “Proudly powered by Wordpress”.
 [^2]: lenguaje que maneja el diseño y presentación de las páginas web, es decir, cómo lucen cuando un usuario las visita.
 [^3]: inspecciona los datos internos de las webs, identificando la programación que se ha utilizado para desarrollarla, también es una extensión que hemos de añadir buscandola directamente desde internet. 
+[^4]: herramienta especializada en escanear páginas de wordpress en busca de vulnerabilidades.
