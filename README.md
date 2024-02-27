@@ -36,10 +36,10 @@ Si solamenente queremos buscar la maquina, y estamos usando VmWare podremos aña
 arp-scan -I ens33 –localnet | grep "VMware, Inc."
 ```
 ![segunda cap_arp scan](https://github.com/Vicctoriaa/VISMA/assets/153718557/0adfdaf6-8c45-4ebb-8f52-129be138e098)
-
-
-
-
+‎ ‎ ‎ 
+‎ ‎ ‎ ‎ 
+‎ 
+‎ 
 ## 2. ATAQUE
 
 Revisaremos si la maquina se encunetra activa o si hay algun firewall bloqueando las trazas ICMP, para ello debermos hacer un `ping`. 
@@ -148,6 +148,11 @@ Si entramos a la url : `http://wordpress.aragog.hogwarts/blog/wp-content/plugins
 
 
 
+‎ 
+‎ ‎ 
+‎ ‎ ‎
+‎ 
+‎ 
 
 #===============================MIS-REDES==================================#
 
