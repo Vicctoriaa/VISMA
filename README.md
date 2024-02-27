@@ -116,7 +116,7 @@ Como lo que queríamos era buscar plugions de wordpress que fuesen vulnerables p
 ```
 -wpscan --url http://wordpress.aragog.hogwarts/blog/ --enumerate u,vp --plugin-detection agressive --api-token=$wpapi
 ```
-Podemos encontrar que ha detectado varios plugins con vulnerabilidades, pero de todos esos el que mas me llama la atención es uno que me permite subir archivos de sin autenticarme y que de ahí puede derivar en una ejecución remota de comandos.[https://wpscan.com/vulnerability/e528ae38-72f0-49ff-9878-922eff59ace9/]
+Podemos encontrar que ha detectado varios plugins con vulnerabilidades, pero de todos esos el que mas me llama la atención es uno que me permite subir archivos de sin autenticarme y que de ahí puede derivar en una ejecución remota de comandos.[mas información](https://wpscan.com/vulnerability/e528ae38-72f0-49ff-9878-922eff59ace9/)
 
 
 
