@@ -256,7 +256,11 @@ require_once(ABSPATH . 'wp-settings.php');
 ```
 
 
-Observamos que el archivo nombra un `“/etc/wordpress/config-default.php"`, lo que garemos será investigarlo al no estar seguros de lo que contiene y no queremos perder nada 
+Observamos que el archivo nombra un `“/etc/wordpress/config-default.php"`, lo que garemos será investigarlo al no estar seguros de lo que contiene y no queremos perder nada, utilizareos el comando `pushd /etc/wordpress/`[^6]
+al hacerlo nos encontramos el archivo htacces que es el que no nos permite tener directory listing en la web y el archivo por el que hemos venido llamado “config-default.php”. Si le hacemos un cat encontramos que tenemos unas credenciales.
+
+![15 cap_pushd](https://github.com/Vicctoriaa/VISMA/assets/153718557/8b78bad0-26d6-467f-b2b6-b12b9fa37dbb)
+- Normalmente en wordpress se utiliza un archivo llamado wp-config.php para configurar La base de datos con las entradas
 
 
 #===============================MIS-REDES==================================#
@@ -279,4 +283,5 @@ https://www.instagram.com/
 [^2]: lenguaje que maneja el diseño y presentación de las páginas web, es decir, cómo lucen cuando un usuario las visita.
 [^3]: inspecciona los datos internos de las webs, identificando la programación que se ha utilizado para desarrollarla, también es una extensión que hemos de añadir buscandola directamente desde internet. 
 [^4]: herramienta especializada en escanear páginas de wordpress en busca de vulnerabilidades.
-[^5]: interfaz de usuario de línea de comandos particular que se utiliza para comunicarse con el núcleo de Linux
+[^5]: interfaz de usuario de línea de comandos particular que se utiliza para comunicarse con el núcleo de Linux.
+[^6]: que nos permite hacer un cd a un directorio pero si queremos volver al que estábamos solo tenemos que poner “popd”.
