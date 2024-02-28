@@ -336,7 +336,7 @@ watch -n 1 ls -l
 Vemos que si esta en root, al saber que ya tenemmos la ruta con permisos SUID, ejecutamos `bash -p`, nos permitirá ejecutar la bash como el owner. Observamos lo siguiente:
 ![22 cap_bash-p](https://github.com/Vicctoriaa/VISMA/assets/153718557/b049e072-6e8f-4ff9-abe1-7507f4eb3025)
 
-Si abrimos la ultima flag que vemos, con el comando `cat horcrux2.txt`nos da la enhorabuena :peepo: ya que hemos conseguido vulnerar la maqona por completo. Si queremos entrar las veces que queramos sin contraseña podremos 
+Si abrimos la ultima flag que vemos, con el comando `cat horcrux2.txt`nos da la enhorabuena :squirrel: ya que hemos conseguido vulnerar la maqona por completo. Si queremos entrar las veces que queramos sin contraseña podremos 
 
 
 
