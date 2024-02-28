@@ -336,8 +336,20 @@ watch -n 1 ls -l
 Vemos que si esta en root, al saber que ya tenemmos la ruta con permisos SUID, ejecutamos `bash -p`, nos permitirá ejecutar la bash como el owner. Observamos lo siguiente:
 ![22 cap_bash-p](https://github.com/Vicctoriaa/VISMA/assets/153718557/b049e072-6e8f-4ff9-abe1-7507f4eb3025)
 
-Si abrimos la ultima flag que vemos, con el comando `cat horcrux2.txt`nos da la enhorabuena :squirrel: ya que hemos conseguido vulnerar la maqona por completo. Si queremos entrar las veces que queramos sin contraseña podremos 
+Si abrimos la ultima flag que vemos, con el comando `cat horcrux2.txt`nos da la enhorabuena 😊👍 
+Ya que hemos conseguido vulnerar la maqona por completo. Si queremos entrar las veces que queramos sin contraseña, lo explicamos en el siguiente punto.
 
+# 4. Entrar sin contraseña
+
+Creamos una clave publica en nuestro equipo de ssh y la meteremos dentro del directorio `/root/.ssh`
+```
+sudo nano id:rsa.pub
+```
+Una vez creada quitamos el salto de línea del archivo `/root/.ssh/id_rsa.pub`, ejecuntamos el siguiente comando:
+```
+cat /root/.ssh/id_rsa.pub | tr '\\n'
+```
+Y lo copiamos al portapapeles ```cat /root/.ssh/id_rsa.pub | tr '\\n' | xclip -sel clip```
 
 
 
