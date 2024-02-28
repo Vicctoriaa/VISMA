@@ -363,7 +363,7 @@ Ya tenemos acceso, podemos conectarnos como root@IP_DE_LA_ARAGOG
 ![24 cap_finalCLAVE](https://github.com/Vicctoriaa/VISMA/assets/153718557/21b00eaf-6cbe-439b-adb2-7dd81facbbdd)
 
 > [!CAUTION]
-> Si tienes miedo a la arañas, cualquier fobia, te puede afectar de alguna manera ver una araña/taratula no bajes mas de este texto, ya que la máquina hace referencia a la araña de harry potter.
+> Si tienes miedo a la arañas, cualquier fobia, te puede afectar de alguna manera ver una araña/tarantula no bajes mas de este texto, ya que la máquina hace referencia a la araña de harry potter.
 
 
 #===============================MIS-REDES==================================#
