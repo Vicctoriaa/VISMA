@@ -326,9 +326,17 @@ find / -user hagrid98 2>/dev/null
 ```
 Encontramos que casi todos son de rutas de procesos del sistema o cosas parecidas, pero hay un archivo en el directorio `/opt/`que llama la atención porque aparte de encontrarse en el path es un script en bash donde el owner es hagrid98
 
+Al parecer mueve todo de un directorio a otro, no creo que vaya a ejecutarlo a mano ya que sinó no se haría el script así que vamos a suponer que es una tarea cron y como hagrid98 no tiene tareas cron pues la tarea cron es ejecutada por root o ginny, así que vamos a agregarle una línea donde hagamos que /bin/bash se convierta en suid y así saber si es root el que está ejecutando la tarea.
+```
+cat /opt/.backup.sh
+```
+```
+watch -n 1 ls -l
+```
+Vemos que si esta en root, al saber que ya tenemmos la ruta con permisos SUID, ejecutamos `bash -p`, nos permitirá ejecutar la bash como el owner. Observamos lo siguiente:
+![22 cap_bash-p](https://github.com/Vicctoriaa/VISMA/assets/153718557/b049e072-6e8f-4ff9-abe1-7507f4eb3025)
 
-
-
+Si abrimos la ultima flag que vemos, con el comando `cat horcrux2.txt`nos da la enhorabuena :peepo: ya que hemos conseguido vulnerar la maqona por completo. Si queremos entrar las veces que queramos sin contraseña podremos 
 
 
 
