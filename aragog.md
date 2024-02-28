@@ -260,7 +260,77 @@ Observamos que el archivo nombra un `“/etc/wordpress/config-default.php"`, lo 
 al hacerlo nos encontramos el archivo htacces que es el que no nos permite tener directory listing en la web y el archivo por el que hemos venido llamado “config-default.php”. Si le hacemos un cat encontramos que tenemos unas credenciales.
 
 ![15 cap_pushd](https://github.com/Vicctoriaa/VISMA/assets/153718557/8b78bad0-26d6-467f-b2b6-b12b9fa37dbb)
-- Normalmente en wordpress se utiliza un archivo llamado wp-config.php para configurar La base de datos con las entradas
+> Normalmente en wordpress se utiliza un archivo llamado wp-config.php para configurar La base de datos con las entradas. También se configura la caché, correo electrónico idioma cookies de sesión, etc...
+
+
+En este caso como es otro archivo config sobreentiendo que es la contraseña para una base de datos, empezaremos por la más típica `mysql` y para saber si existe simplemente haremos un `ps aux`[^7] y filtraremos por `mysql`
+```
+ps aux | grep mysql
+```
+![16 cap_ps aux](https://github.com/Vicctoriaa/VISMA/assets/153718557/3ead897c-62f3-48ef-a99c-40677d2127ff)
+
+En este caso encontramos que estamos frente a mysql así que vamos a intentar loguearnos
+
+Si ponemos `mysql` nos dice que nuestro usuario no tiene acceso y si hacemos ,`mysql –help` nos muestra parámetros que nos permite cambiar el usuario el cuál nos logueamos y contraseña.
+Así que seguido pondremos este comando
+```
+mysql -uroot -p
+```
+Una vez logueados vamos a ver que bases de datos tenemos, utilizando el comadno `show databases;`, entramos a la base de datos de WordPress ya que el sitio está montado en WordPress, ejecuntando `show tables;`.
+
+![17 cap_mariaDB](https://github.com/Vicctoriaa/VISMA/assets/153718557/332649f9-ecf9-4ee9-8d9b-8ab566697c45)
+
+Dentro de esta tenemos varias tablas, vamos a entrar a la de wp_users, si hacemos un `describe wp_users` para ver sus columnas obtenemos lo siguiente:
+
+![18 cap_mariaUsers](https://github.com/Vicctoriaa/VISMA/assets/153718557/0f8cfbf8-0c8a-4222-a538-4b1cfc5298fa)
+
+Listaremos lo que hay dentro.
+```
+select * form wp_users;
+```
+![19 cap_select USERS](https://github.com/Vicctoriaa/VISMA/assets/153718557/079c0c24-35fe-4f4f-a25a-ceb3aa398ac7)
+
+Si nos fijamos bien vemos que la contraseña del usuario hagrid98 esta en hash, lo sabemos ya que inicia con un `$P$` ya que es un formato característico de sistemas como PHP y WordPress. Intentaremos llevarlo al directorio `/Resources/Credentials` y lo metemos en un archivo llamado `hash`.
+```
+mkdir Resources
+cd !$
+mdkir Credentials
+cd !$
+```
+```
+nvim hash
+catn hash
+```
+Una vez aquí dentro vamos a utilizar una herramienta llamada `john` junto al diccionario `rockyou` que se encuentra en la ruta absoluta `/usr/share/wordlists/rockyou.txt`.
+```
+john -w:/usr/share/wordlists/rockyou.txt hash
+```
+![20 cap_john1](https://github.com/Vicctoriaa/VISMA/assets/153718557/5c6498e2-d327-4a7b-90bc-bf3905c418af)
+
+Podemis ver que la herrmaineta john nos ha encontrado la contrasela de hagrid98, que es password123. Una vez tenemos el usuraio y la contraseña probaremos a conectarnos por `ssh`.
+```
+ssh hagrid98@IP_DE_LA_ARAGOG
+```
+![21 cap_ssh](https://github.com/Vicctoriaa/VISMA/assets/153718557/cc633ec1-71ca-4d77-9df2-333588451661)
+> Vemos que nos deja conctarnos, es importante poner la contarseña que encontramos anteriormente y no la de nuestra máquina.
+
+# 3. Escalada de privilegios
+
+Debemos intentar escalar privilegios ya sea a root o a ginny (asi tiene mas privilegios), lo primero que vamos a hacer es revisar si hay algún archivo con permisos SUID[^8] (4000), ejecutamos el siguiente comando para ver que permisos tenemos.
+```
+find / -perm -4000 2>/dev/null
+```
+No hemos encontrado nada, así que ahora vamos a buscar scripts de los que seamos propietarios:
+```
+find / -user hagrid98 2>/dev/null
+```
+Encontramos que casi todos son de rutas de procesos del sistema o cosas parecidas, pero hay un archivo en el directorio `/opt/`que llama la atención porque aparte de encontrarse en el path es un script en bash donde el owner es hagrid98
+
+
+
+
+
+
 
 
 #===============================MIS-REDES==================================#
@@ -285,3 +355,5 @@ https://www.instagram.com/
 [^4]: herramienta especializada en escanear páginas de wordpress en busca de vulnerabilidades.
 [^5]: interfaz de usuario de línea de comandos particular que se utiliza para comunicarse con el núcleo de Linux.
 [^6]: que nos permite hacer un cd a un directorio pero si queremos volver al que estábamos solo tenemos que poner “popd”.
+[^7]: el comando ps aux nos permite ver procesos corriendo.
+[^8]: son permisos de acceso que pueden asignarse a archivos o directorios en un sistema operativo basado en Unix.
