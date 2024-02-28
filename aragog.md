@@ -349,7 +349,18 @@ Una vez creada quitamos el salto de línea del archivo `/root/.ssh/id_rsa.pub`, 
 ```
 cat /root/.ssh/id_rsa.pub | tr '\\n'
 ```
-Y lo copiamos al portapapeles ```cat /root/.ssh/id_rsa.pub | tr '\\n' | xclip -sel clip```
+Y lo copiamos al portapapeles 
+```
+cat /root/.ssh/id_rsa.pub | tr '\\n' | xclip -sel clip
+```
+Abrimos con nano un archivo llamado ".ssh/authorized_keys" y pegamos la clave (máquina victima)
+
+![23 cap_pegarCLAVE](https://github.com/Vicctoriaa/VISMA/assets/153718557/b7d5fb2c-3a21-41d6-87fc-da0d04ac55b5)
+
+Ya tenemos acceso, podemos conectarnos como root@IP_DE_LA_ARAGOG
+
+![24 cap_finalCLAVE](https://github.com/Vicctoriaa/VISMA/assets/153718557/21b00eaf-6cbe-439b-adb2-7dd81facbbdd)
+
 
 
 
