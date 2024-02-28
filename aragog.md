@@ -174,10 +174,17 @@ echo “texto en base 64” | base64 -d; echo
 
 ![14 cap_hagrid](https://github.com/Vicctoriaa/VISMA/assets/153718557/115ac27c-5cd2-4c13-a780-3ba85437b622)
 
-Buscaremos si encontramos algo útil, como esta corriendo apache debemos buscar el directorio de apache que es “/etc/apache2” una vez dentro encontramos que hay un directorio llamado “sites-enabled” entramos y dentro hay un wordpress.conf, al hacerle un cat nos revela que el directorio donde esta montado el wordpress es “/usr/share/wordpress” si entramos ahí encontramos que hay un direcorio interesante llamado “wp-content”, si entramos y nos dirigimos a plugins>wp-file-manager>lib>files encontramos nuestro payload.php, de momento no lo borraremos porque sin el no podemos tener la reverse Shell, pero una vez escalemos y tengamos conexión por ssh debemos borrarlo para dejar menos evidencias.
-
-
-
+Buscaremos si encontramos algo útil, como esta corriendo apache debemos buscar el directorio de apache que `“/etc/apache2”` una vez dentro encontramos que hay un directorio llamado `“sites-enabled”` entramos y dentro hay un wordpress.conf, al hacerle un `cat` nos revela que el directorio donde esta montado el wordpress es `“/usr/share/wordpress”` si entramos, encontramos que hay un direcorio interesante llamado `“wp-content”`, si entramos y nos dirigimos a `plugins>wp-file-manager>lib>files` encontramos nuestro `payload.php`, de momento no lo borraremos porque sin el no podemos tener la reverse Shell, pero una vez escalemos y tengamos conexión por ssh debemos borrarlo para dejar menos evidencias.
+```
+cd /etc/apache2/sites/enabled
+cat worpress.conf
+```
+```
+cd /usr/share/wordpress & ls
+```
+```
+cd /plugins/wp-file-manager/lib/files
+```
 
 #===============================MIS-REDES==================================#
 
