@@ -75,8 +75,10 @@
 
 **25. -ic**
   - Con este parámetro hacemos que los códigos en estado HTTP no se distinga entre mayúsculas y minúsculas.
+    
 **26. -fc 403**
   - Con este parámetro escogemos que queremos filtrar durante el escaneo en este caso queremos las respuestas de 403 (Forbidden).
+    
 **27. -e**
   - Este parámetro lo utilizaremos para decir que archivos queremos que nos filtre, en este caso seria .txt y .html
 
