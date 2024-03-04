@@ -62,12 +62,12 @@
   -	Esta redirección es utilizada para hacer que la entrada estándar del proceso Bash (que normalmente se recibiría del teclado) esté conectada a la misma ubicación que la salida estándar. Esto significa que cualquier entrada que se escriba en la sesión de la shell se transmitirá a través de la misma conexión que se ha establecido con la dirección IP y puerto especificados. Esto permite la interacción bidireccional con la shell remota a través de la conexión de red establecida.
 
 **21. ffuf**
-  - Es el comando principal ya que es la herramienta que vamos a utilizar.
+  - Prueba diferentes combinaciones de direcciones URL de un dominio para identificar qué rutas están activas y cuáles no.
 
 **22. -c**
   - Con este parámetro haremos que siga automáticamente las redirecciones HTTP y HTTPS.
 
-**23. -u
+**23. -u**
   - Este paramettro hacemos especificar una URL para hacer la fuerza bruta.
     
 **24. -w**
