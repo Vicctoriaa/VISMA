@@ -1,5 +1,5 @@
 **1. “-sS”:**
-      - este parámetro nos permite hacer un sondeo Tcp pero no establecer conexión En vez de “SYN>SYN/ACK>ACK” hace un “SYN>SYN/ACK/RST” El rst es para cerrar conexión, como no se ha esablecido conexión normalmente no se guarda en los logs ni rastro en los firewalls.
+    - este parámetro nos permite hacer un sondeo Tcp pero no establecer conexión En vez de “SYN>SYN/ACK>ACK” hace un “SYN>SYN/ACK/RST” El rst es para cerrar conexión, como no se ha esablecido conexión normalmente no se guarda en los logs ni rastro en los firewalls.
     
 **2.	“-p-“**
   - Con esto le indicamos que nos escanee los 65535 puertos totales que hay
