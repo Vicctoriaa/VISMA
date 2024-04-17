@@ -4,3 +4,8 @@ Primero vamos a preparar el entorno de Active directory, para ello empezaremos c
 +	Servidor DHCP
 +	Servidor DNS
 
+Así que después de haber enumerado todos los servicios que ofrecerá, toca crear la máquina. 
+
+## Crear máquinas (DC):
+
+En este caso utilizaremos un Windows Server 2016, pero la versión Datacenter. Y en nuestro caso le pondremos el nombre de máquina DC-Companny:
