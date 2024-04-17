@@ -34,6 +34,19 @@ Arriba a la derecha habrá una bandera el cual son las notificaciones, pulsaremo
 
 ![Imagen4](https://github.com/Vicctoriaa/VISMA/assets/153718557/72127c28-d569-4ba2-ad77-8c599e10cc41)
 
+Seguido nos pedirá una constraseña para nuestro dominio, tendremos que tener activado (en la misma pestaña) "Domain Name System (DNS) server" y "Global Catalog (GC)". En el apartado opción adicional, le pondremos el nombre de nuestro proyecto. 
+Una vez aceptemos todo nos pedirá reiniciar la máquina, la reiniciamos.
+
+
+## Change Hostname: 
+
+Para cambiar el nombre pc haremos click derecho en el símbolo de Windows de nuestra barra de tareas y nos dirigiremos a "System".
+Nos saldrá una ventana con datos del sistema, deberemos darle a "Change settings".
+
+![Imagen5](https://github.com/Vicctoriaa/VISMA/assets/153718557/ff524d02-dc1e-42c7-aa53-11f15baf89b3)
+
+Nos saltara otra ventana el cual para poder cambiarle el nombre deberemos pulsar en "Change"
+
 
 
 
