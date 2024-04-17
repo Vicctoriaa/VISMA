@@ -45,9 +45,28 @@ Nos saldrá una ventana con datos del sistema, deberemos darle a "Change setting
 
 ![Imagen5](https://github.com/Vicctoriaa/VISMA/assets/153718557/ff524d02-dc1e-42c7-aa53-11f15baf89b3)
 
-Nos saltara otra ventana el cual para poder cambiarle el nombre deberemos pulsar en "Change"
+Nos saltara otra ventana el cual para poder cambiarle el nombre deberemos pulsar en "Change", escribiremos el nombre que queramos ponerle a nuestro pc, cuando aceptemos nos pedirá reiniciar para que se pueda cambiar correctamente, no es obligatorio reiniciar pero seria conveniente.
 
+## Creación de usuarios AD:
 
+Comenzaremos a crear los usuarios del active directory, para ello iremos a Tools > Active directory Users and Computers, nos saldrá una ventana tal y como se muestra en la imagen el cual haremos click derecho > users > new y crearemos los usuarios que necesitemos, con una contraseña sergura. Nosotros hemos creado el usuario de Ismail y Victoria como usuarios sin privilegios. 
 
+(IMAGEN)
+
+Una hayamos creado los usuarios necesarios en nuestro active directory, pasaremos al siguiente paso.
+
+## Configuración del DHCP:
+
+Para configurar el DHCP será importante tenerlo instalado como comentamos en el primer punto. Comenzaremos yendo a la bandera veremos la notificación del DHCP, cuando le demos a "complete DHCP configuration" se nos abrira una ventana, en autorizacion pondremos el nombre que queramos,en nuestro caso pusimos VISMA\Administrator, aceptamos y instalamos. 
+
+(Imagen)
+
+Seguido iremos a tolos > DHCP, entraremos abriremos las carpetas hasta entrar a iPv4, añadiremos una nueva ip comenzando por la ip 192.168.1.40 hasta la 192.168.1.200, con la máscara 255.255.255.0 pondremos 90 días, como router pondremos la ip 192.168.1.1 como name Domain pondremos el que pusimos al crear nuestro dominio visma.local  
+
+(imagenes)
+
+## Installing hmailserver:
+
+Para que todo vaya correctamente deberemos instalar una característica llamada ".NET Framework 3.5". Una vez este instalada, iremos a nuestro navegador y instalaremos el hmailserver (url), cuando ya lo hayamos instalado lo iniciaremos, nos p
 
 
