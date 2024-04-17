@@ -9,3 +9,5 @@ Así que después de haber enumerado todos los servicios que ofrecerá, toca cre
 ## Crear máquinas (DC):
 
 En este caso utilizaremos un Windows Server 2016, pero la versión Datacenter. Y en nuestro caso le pondremos el nombre de máquina DC-Companny:
+
+![Imagen1](https://github.com/Vicctoriaa/VISMA/assets/153718557/0546c1b1-835a-44d7-874b-c516ae2d148d)
