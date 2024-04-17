@@ -14,4 +14,4 @@ En este caso utilizaremos un Windows Server 2016, pero la versión Datacenter. Y
 
 Una vez tenemos esto, ya podemos iniciar la máquina virtual (si vamos a poner la MV en una red NAT o vamos a modificar la interfaz de red, antes de inicarla, modificarlo). Procedemos con la instalación normal, Al escoger la versión, debemos escoger la “Windows Server 2016 Datacenter Evaluation (Desktop Experience)”.
 
-![Imagen1](https://github.com/Vicctoriaa/VISMA/assets/153718557/7d39d3f8-9302-48b1-b797-98db102d180c)
+![Imagen1](https://github.com/Vicctoriaa/VISMA/assets/153718557/f14d5c9a-b3a1-46be-9efe-731832da937f)
