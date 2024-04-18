@@ -67,6 +67,19 @@ Seguido iremos a tolos > DHCP, entraremos abriremos las carpetas hasta entrar a 
 
 ## Installing hmailserver:
 
-Para que todo vaya correctamente deberemos instalar una característica llamada ".NET Framework 3.5". Una vez este instalada, iremos a nuestro navegador y instalaremos el hmailserver (url), cuando ya lo hayamos instalado lo iniciaremos, nos p
+Para que todo vaya correctamente deberemos instalar una característica llamada ".NET Framework 3.5".
+
+![Imagen9](https://github.com/Vicctoriaa/VISMA/assets/153718557/95aed4f6-5ff2-4430-8f36-7c2ff5be02df)
+
+Una vez este instalada, iremos a nuestro navegador y instalaremos el hmailserver (url), cuando ya lo hayamos instalado, lo iniciaremos, nos pedirá una contraseña pondremos la que nosotros queramos , una vez dentro añadiremos un dominio, pondremos el dominio que creamos anteriormente en nuestro AD, pondremos usuarios lo que creamos anteriormente yendo a nuestro dominio Accounts > Add, pondremos el nombre que queramos pero es recomendable poner el de los usuarios que creamos en nuestro AD.
+
+![Imagen10](https://github.com/Vicctoriaa/VISMA/assets/153718557/451d6269-360f-4c71-bc3a-75f783716346)
+
+## Creando y configurando los clientes del AD DC:
+
+Empezaremos creando las máquinas de cada usuario, omitimos la instalación desatendida para poder escoger la versión de Windows, ya que para poder ser clientes del AD, debemos contar con la versión profesional de Windows (Windows pro). La instalamos con las carateristicas que queramos, en nuestro caso al tener un ordenador estable le pusimos las siguientes características:
+
+![Imagen11](https://github.com/Vicctoriaa/VISMA/assets/153718557/9971d939-0176-445c-8110-a85b66f3c9a6)
+
 
 
