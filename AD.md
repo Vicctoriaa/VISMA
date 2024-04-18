@@ -51,7 +51,7 @@ Nos saltara otra ventana el cual para poder cambiarle el nombre deberemos pulsar
 
 Comenzaremos a crear los usuarios del active directory, para ello iremos a Tools > Active directory Users and Computers, nos saldrá una ventana tal y como se muestra en la imagen el cual haremos click derecho > users > new y crearemos los usuarios que necesitemos, con una contraseña sergura. Nosotros hemos creado el usuario de Ismail y Victoria como usuarios sin privilegios. 
 
-(IMAGEN)
+![Imagen6](https://github.com/Vicctoriaa/VISMA/assets/153718557/7cae5d92-0d95-4080-b22e-7cd707a257c2)
 
 Una hayamos creado los usuarios necesarios en nuestro active directory, pasaremos al siguiente paso.
 
@@ -59,11 +59,11 @@ Una hayamos creado los usuarios necesarios en nuestro active directory, pasaremo
 
 Para configurar el DHCP será importante tenerlo instalado como comentamos en el primer punto. Comenzaremos yendo a la bandera veremos la notificación del DHCP, cuando le demos a "complete DHCP configuration" se nos abrira una ventana, en autorizacion pondremos el nombre que queramos,en nuestro caso pusimos VISMA\Administrator, aceptamos y instalamos. 
 
-(Imagen)
+![Imagen7](https://github.com/Vicctoriaa/VISMA/assets/153718557/396c0986-f835-45b3-809c-3b15b961b9f5)
 
 Seguido iremos a tolos > DHCP, entraremos abriremos las carpetas hasta entrar a iPv4, añadiremos una nueva ip comenzando por la ip 192.168.1.40 hasta la 192.168.1.200, con la máscara 255.255.255.0 pondremos 90 días, como router pondremos la ip 192.168.1.1 como name Domain pondremos el que pusimos al crear nuestro dominio visma.local  
-
-(imagenes)
+ 
+![Imagen8](https://github.com/Vicctoriaa/VISMA/assets/153718557/5da1339a-0eac-4d1f-acee-d647b3c23dd4)
 
 ## Installing hmailserver:
 
