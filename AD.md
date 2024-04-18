@@ -79,7 +79,8 @@ Una vez este instalada, iremos a nuestro navegador y instalaremos el hmailserver
 
 Empezaremos creando las máquinas de cada usuario, omitimos la instalación desatendida para poder escoger la versión de Windows, ya que para poder ser clientes del AD, debemos contar con la versión profesional de Windows (Windows pro). La instalamos con las carateristicas que queramos, en nuestro caso al tener un ordenador estable le pusimos las siguientes características:
 
-![Imagen11](https://github.com/Vicctoriaa/VISMA/assets/153718557/9971d939-0176-445c-8110-a85b66f3c9a6)
+![Imagen11](https://github.com/Vicctoriaa/VISMA/assets/153718557/51369ba7-0917-45a0-95fb-05df81c6502c)
+
 
 
 
