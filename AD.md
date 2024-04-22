@@ -81,6 +81,28 @@ Empezaremos creando las máquinas de cada usuario, omitimos la instalación desa
 
 ![Imagen11](https://github.com/Vicctoriaa/VISMA/assets/153718557/51369ba7-0917-45a0-95fb-05df81c6502c)
 
+Una vez tengamos la máquina la clonaremos identicamente para asi poder hacer la máquina del otro usuario. Una vez cloanda comenzaremos a instalarla, en nuestro caso le hemos puesto al nombre de equipo LocalAdmin, cuando acabemos de instalarla. Iniciar la terminal/cmd, pondremos ipconfig (comando el cual nos sirve para saber que ip tiene ) encontraremos que los 2 tienen la misma ip, si revisamos los dispositivos a los cuales el Windows server ha dado ip, solo nos aparece 1:
 
+(IMAGEN)
 
+En lo que nos deberíamos fijar es en el “Unique ID”, este es la dirección MAC y es que al clonar las máquinas también se ha clonado la dirección MAC. Por lo que, para resolver este problema, simplemente debemos Apagar una máquina, entrar en configuración > red > Avanzado. Y aquí pedir otra MAC. Y ya está, se han cambiado solo las últimas 3 duplas de la dirección MAC, ya que las 3 primeras, hacen referencia al fabricante (Virtual box).
+Una vez tenemos esto, ya podemos inicar la máquina y ver que tenemos una dirección ip distinta y además nos aparece en “Adresses Leases” en el Win Server.
+
+(IMAGEN)
+
+## Añadir ordenadores al AD:
+
+Para añadir ordenadores al AD, es decir, añadirles nuestro ddominio, deberemos dirijirnos a la confirguación de nuestra máquina, dentro de cuentas > Obtener acceso a trabajo o escuela, seleccionaremos conectar como nosotros no tendremos que poner un correo eléctronico sino un dominio, le daremos abajo, donde dice "UNir este dispositivo a un dominio local AD", pondremos nuestro dominio visma.local.
+
+(IMAGEN)
+
+Pondremos el usuario que queramos poner en ese ordenador, es decir, si estamos poniendo el dominio en la máquina Isma, pondremos le usuario ismail, seguido el tipo de cuenta la dejaremos con administrador, y reiniciaremos, lo mismo haremos en con la otra máquina, Victoria.
+
+(IMAGEN)
+
+Lo siguieny¡te será quitar el antivirus de nuestras máquinas. Para quitar el de nyestro serividor abriremos la PowerShell y pondremos el siguiente comando:
+
+`Unistall-WindowsFeature -Name Windows-Defender`
+
+Para quitar el antivirus de nuestras máquinas usuarios nos dirigiremos a configuración
 
