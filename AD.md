@@ -98,11 +98,11 @@ Para añadir ordenadores al AD, es decir, añadirles nuestro ddominio, deberemos
 
 Pondremos el usuario que queramos poner en ese ordenador, es decir, si estamos poniendo el dominio en la máquina Isma, pondremos le usuario ismail, seguido el tipo de cuenta la dejaremos con administrador, y reiniciaremos, lo mismo haremos en con la otra máquina, Victoria.
 
-![Imagen15](https://github.com/Vicctoriaa/VISMA/assets/153718557/d97b13b6-1319-4b90-a63f-8f32fc283e08)
+![Imagen15](https://github.com/Vicctoriaa/VISMA/assets/153718557/5bdd1897-1534-40ba-bea3-12a9f4cde8f1)
 
 Lo siguiente será quitar el antivirus de nuestras máquinas. Para quitar el de nyestro serividor abriremos la PowerShell y pondremos el siguiente comando:
 
-`Unistall-WindowsFeature -Name Windows-Defender`
+```Unistall-WindowsFeature -Name Windows-Defender```
 
 ![Imagen16](https://github.com/Vicctoriaa/VISMA/assets/153718557/ca11180b-26f9-40da-9eba-9883763a192f)
 
@@ -110,6 +110,6 @@ Para quitar el antivirus de nuestras máquinas usuarios nos dirigiremos a config
 
 ![Imagen17](https://github.com/Vicctoriaa/VISMA/assets/153718557/644d3cad-6c42-49c4-8546-7ffe1e1d38ae)
 
+## Hackeo mediante Aragog:
 
-
-
+Para comenzar el hackeo desde la Aragog, hemos tenido que hackearla como se muestra en el documento `aragog`
