@@ -102,7 +102,9 @@ Pondremos el usuario que queramos poner en ese ordenador, es decir, si estamos p
 
 Lo siguiente será quitar el antivirus de nuestras máquinas. Para quitar el de nyestro serividor abriremos la PowerShell y pondremos el siguiente comando:
 
-```Unistall-WindowsFeature -Name Windows-Defender```
+```
+Unistall-WindowsFeature -Name Windows-Defender
+```
 
 ![Imagen16](https://github.com/Vicctoriaa/VISMA/assets/153718557/ca11180b-26f9-40da-9eba-9883763a192f)
 
