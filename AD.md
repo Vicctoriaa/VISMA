@@ -83,26 +83,33 @@ Empezaremos creando las máquinas de cada usuario, omitimos la instalación desa
 
 Una vez tengamos la máquina la clonaremos identicamente para asi poder hacer la máquina del otro usuario. Una vez cloanda comenzaremos a instalarla, en nuestro caso le hemos puesto al nombre de equipo LocalAdmin, cuando acabemos de instalarla. Iniciar la terminal/cmd, pondremos ipconfig (comando el cual nos sirve para saber que ip tiene ) encontraremos que los 2 tienen la misma ip, si revisamos los dispositivos a los cuales el Windows server ha dado ip, solo nos aparece 1:
 
-(IMAGEN)
+![Imagen12](https://github.com/Vicctoriaa/VISMA/assets/153718557/cd44ee9b-da67-41b0-bf3d-dcdafd760b02)
 
 En lo que nos deberíamos fijar es en el “Unique ID”, este es la dirección MAC y es que al clonar las máquinas también se ha clonado la dirección MAC. Por lo que, para resolver este problema, simplemente debemos Apagar una máquina, entrar en configuración > red > Avanzado. Y aquí pedir otra MAC. Y ya está, se han cambiado solo las últimas 3 duplas de la dirección MAC, ya que las 3 primeras, hacen referencia al fabricante (Virtual box).
 Una vez tenemos esto, ya podemos inicar la máquina y ver que tenemos una dirección ip distinta y además nos aparece en “Adresses Leases” en el Win Server.
 
-(IMAGEN)
+![Imagen13](https://github.com/Vicctoriaa/VISMA/assets/153718557/3e8b3313-bfa7-4d5c-933c-3aad8fc88dd0)
 
 ## Añadir ordenadores al AD:
 
 Para añadir ordenadores al AD, es decir, añadirles nuestro ddominio, deberemos dirijirnos a la confirguación de nuestra máquina, dentro de cuentas > Obtener acceso a trabajo o escuela, seleccionaremos conectar como nosotros no tendremos que poner un correo eléctronico sino un dominio, le daremos abajo, donde dice "UNir este dispositivo a un dominio local AD", pondremos nuestro dominio visma.local.
 
-(IMAGEN)
+![Imagen14](https://github.com/Vicctoriaa/VISMA/assets/153718557/7cb03d7e-24f9-4252-b0a3-67814f73ad61)
 
 Pondremos el usuario que queramos poner en ese ordenador, es decir, si estamos poniendo el dominio en la máquina Isma, pondremos le usuario ismail, seguido el tipo de cuenta la dejaremos con administrador, y reiniciaremos, lo mismo haremos en con la otra máquina, Victoria.
 
-(IMAGEN)
+![Imagen15](https://github.com/Vicctoriaa/VISMA/assets/153718557/d97b13b6-1319-4b90-a63f-8f32fc283e08)
 
-Lo siguieny¡te será quitar el antivirus de nuestras máquinas. Para quitar el de nyestro serividor abriremos la PowerShell y pondremos el siguiente comando:
+Lo siguiente será quitar el antivirus de nuestras máquinas. Para quitar el de nyestro serividor abriremos la PowerShell y pondremos el siguiente comando:
 
 `Unistall-WindowsFeature -Name Windows-Defender`
 
-Para quitar el antivirus de nuestras máquinas usuarios nos dirigiremos a configuración
+![Imagen16](https://github.com/Vicctoriaa/VISMA/assets/153718557/ca11180b-26f9-40da-9eba-9883763a192f)
+
+Para quitar el antivirus de nuestras máquinas usuarios nos dirigiremos a configuración > Actualización y seguridad > Seguridad win > Protección contra virus y amenazas > Admin de la configuración, lo desactivamos todo. Luego seguido para confirmarlo haremos win + r ponemos gpdit.msc, nos dirigimos a la carpeta, plantilla admin > antivirus win defender > veremos si esta desactivado al completo, en caso de que no lo desactivamos manualmente.
+
+![Imagen17](https://github.com/Vicctoriaa/VISMA/assets/153718557/644d3cad-6c42-49c4-8546-7ffe1e1d38ae)
+
+
+
 
