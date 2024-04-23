@@ -103,7 +103,7 @@ Pondremos el usuario que queramos poner en ese ordenador, es decir, si estamos p
 Lo siguiente será quitar el antivirus de nuestras máquinas. Para quitar el de nyestro serividor abriremos la PowerShell y pondremos el siguiente comando:
 
 ```
-Unistall-WindowsFeature -Name Windows-Defender
+Uninstall-WindowsFeature -Name Windows-Defender
 ```
 
 ![Imagen16](https://github.com/Vicctoriaa/VISMA/assets/153718557/ca11180b-26f9-40da-9eba-9883763a192f)
@@ -114,4 +114,17 @@ Para quitar el antivirus de nuestras máquinas usuarios nos dirigiremos a config
 
 ## Hackeo mediante Aragog:
 
-Para comenzar el hackeo desde la Aragog, hemos tenido que hackearla como se muestra en el documento `aragog`
+Para comenzar el hackeo desde la Aragog, hemos tenido que hackearla como se muestra en el documento `aragog`, una vez ya estemos conectados a la aragog, en nuestra máquina prinicpal podremos comenzar a hackear. Utilizaremos la herramienta chisel, la instalaremos en github, una vez instalado como esat en zip, tendremos que extraerlo así que lo haremos con comandos, dentro del directorio que tengamos la instalación lo extraeremos con el comando `gzip -d (instalación)`, seguido moveremos el archivo de la instalación a nuestra carpeta chisel, le daremos permisos a chisel, con el comando `chmod +x chisel`.
+Creamos un archivo temporal con `mktemp -d`.
+si entramos al directorio veremos que esta el chisel, seguido crearemos un servidor con el siguiente comando:
+
+```
+./chisel server -reverse -p 1234
+```
+Seguido crearemos también el servidor del cliente:
+
+```
+./chisel client 192.168.1.111:1234 R:socks
+```
+añadiremos el servidor en el archivo proxychain4.conf, con el comando `nano /etc/proxychain4.conf`.
+
