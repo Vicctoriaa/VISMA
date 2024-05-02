@@ -146,6 +146,78 @@ Pasamos el responder por scp a la maquina aragog
 Lo que deberemos hacer sera descomprimirlo con el comando `tar xvf responder.tar.gz`, entraremos al directorio con el comando `cd (diretorio)`una vez descomprimido. Ejecutamos el responder con los parámetros -wd y como la máquina ISMA-PC tiene una tarea programada, para acceder a un recurso compartido en red llamado \\MYSQLServer , pero este no esta disponible. 
 Ejecutamos el responder con los parámetros -wd y como la máquina ISMA-PC tiene una tarea programada, para acceder a un recurso compartido en red llamado \\MYSQLServer , pero este no esta disponible.
 
-![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/1e417dbd-4255-4256-93ca-0f20007ee77f)
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/c09439a7-1f97-450c-b0a2-6deada7ba2ee)
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/eb1d34c0-f750-4c10-9096-0b29195702a4)
+
+Como el recurso no está disponible, el script “responde” al DC diciédole que es el, el recurso compartido, de esta manera que el cliente acaba autenticándose contra nosotros y así recibiendo su hash NTLM. Copiamos el hash, lo metemos dentro de un archivo y junto a john, le añadimos el parámetro “—wordlist=’’”, le damos acceso a un diccionario que por fuerza ruta nos ayudará a romperlo y finalmente encontrar que la contraseña es “baseball1?”, tal y como podemos observar en la siguiente imagen:
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/ea2f2611-d2f1-4e86-b186-ff4846a0898d)
+
+Una vez tenemos la contraseña, con la ayuda de `crackmapexec` ejecutamos un `passwordspraying`, encontramos que el usuario es válido para login y adémas somos administrador en el equipo ‘192.168.2.41’.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/67da87e6-d6fe-4bdb-be7f-5c1d2cc76bc6)
+
+Hacemos un escaneo de puertos con nmap sobre el DC y encontramos que tiene el puerto 110 y el 587 (correo) abiertos, por lo que intentaremos enviar un correo, para ello nos aprovecharemos de una vulnerabilidad con Outlook: 
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/465f515f-f647-4a16-a40e-20a94bc97adb)
+
+Por lo que buscamos el POC (Proof of concept) que se encuentra en este github, `https://github.com/duy-31/CVE-2024-21413`, por lo que hacemos un `git clone https://github.com/duy-31/CVE-2024-21413` para copiar el repositorio a nuestro directorio actual de trabajo.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/54988445-9023-4d23-817d-18643ac0a10a)
+
+Abrimos el .sh y modificamos el html, con el comando `sudo nano cve-2024-21413.sh` para asi se muestre lo que nosotros queremos que se vea.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/a82a42a7-4f34-4c92-8c80-0b733472fb77)
+
+Lo ejecutamos y vemos que nos pide iniciar sesión, por lo que vamos a probar con las credenciales que ya tenemos, para ello debemos convertir tanto como el usuario como la contraseña en base64 (aunque lo podemos hacer por consola, en este caso usarémos la herramienta cyberchef ya que es mas visual).
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/74e68204-ef05-4b15-bd9f-7971f6dec8c1)
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/bfaef261-2c2f-4bde-987b-4cd200395c34)
+
+Una vez lo tenemos modificamos el código de que pueda loguearse
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/8bb7b08e-c79b-4782-87ef-023fdca9d9a8)
+
+Después de haber modificado el código no funciona, por lo que usaremos el código de base para hacerlo a mano, por lo que nos conectamos con proxychains por telnet a la ip del DC.
+
+```
+proxychains telnet 192.168.2.253 25
+```
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/dd95b14f-803c-4c4e-a310-9d814a4f3a86)
+
+Dejamos la terminal del responder abierta y una vez se nos abra por completo conseguimos el hash NTLMv2 de vcondeperez.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/34ac560d-d464-43b8-b947-031d4736a4f3)
+
+Aquí se puede observar como se vería el correo de la víctima:
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/71a12d03-67d4-4cff-98f0-e2871c41e60d)
+
+De lo que se trata esta vulnerabilidad es básicamente que Outlook no te pregunta si quieres abrir el enlace, ya que por ejemplo `thunderbird` si que te pregunta antes de abrirlo. Se vería así al abrirlo:
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/d8164767-3871-4ba3-9c51-661a0827efa4)
+
+Crackeamos la contraseña.
+
+```
+john --show hashes
+```
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/42d08dfe-7a7a-4b3e-82b2-06ee989b12b7)
+
+ Enumeramos los users y encontramos uno que se llama test, enumeramos su información.  
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/a53ef6b9-b78a-4939-90ef-873e54f3c13e)
+
+El usuario test pertenece al grupo con rid 0x201, si nos ponemos a enumerar todos los datos de los usuarios por rid, encontramos que el usuario “administrator” pertenece también al grupo con rid 0x201 por lo que nos da a entender que el usuario test es un usuario administrador.
+
+```
+for rid in $(proxychains rpcclient -U '(dominio)\(usuario)%contraseña' 192.168.2.253 -c 'endomusers' 2>/dev/null | grep -oP '\[.*?\]* | grep '0x' | tr -d '[]'); do echo -e "\n[+] para el Rid $rid\n"; proxychains rpcclient -U (dominio)\(usuario)%contraseña' 192.168.2.253 -c 'queryuser' $rid" 2>/dev/null ;donde | grep -vE 'Home|Dir|Profile|Logon|Workstations|Comment|remote|off|Password|padding|logon|bad|fields
+```
+En nuestro caso en dominio hemos puesto `visma.local`, en usuario `iabjijalazhari` y en contraseá la que nos dio anteriormente `baseball1?` tal que quedaria asi: 'vimsa.local\iabjijalazhari%baseball1?'
+
 
 
