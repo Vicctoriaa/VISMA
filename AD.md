@@ -124,7 +124,11 @@ si entramos al directorio veremos que esta el chisel, seguido crearemos un servi
 Seguido crearemos también el servidor del cliente:
 
 ```
+
 ./chisel client 192.168.1.111:1234 R:socks
 ```
-añadiremos el servidor en el archivo proxychain4.conf, con el comando `nano /etc/proxychain4.conf`.
+añadiremos el servidor en el archivo proxychain4.conf, con el comando `nano /etc/proxychain4.conf`. Si nos fijamos en la ip con el comando `hostname -I` o con `ip a` podremos encontrar dos interfaces red. La siguiete imagen podemos ver un diagrama de la red actual.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/1ed3ae3f-a751-456e-acc2-9b053d573269)
+
 
