@@ -217,7 +217,7 @@ El usuario test pertenece al grupo con rid 0x201, si nos ponemos a enumerar todo
 ```
 for rid in $(proxychains rpcclient -U '(dominio)\(usuario)%contraseña' 192.168.2.253 -c 'endomusers' 2>/dev/null | grep -oP '\[.*?\]* | grep '0x' | tr -d '[]'); do echo -e "\n[+] para el Rid $rid\n"; proxychains rpcclient -U (dominio)\(usuario)%contraseña' 192.168.2.253 -c 'queryuser' $rid" 2>/dev/null ;donde | grep -vE 'Home|Dir|Profile|Logon|Workstations|Comment|remote|off|Password|padding|logon|bad|fields
 ```
-En nuestro caso en dominio hemos puesto `visma.local`, en usuario `iabjijalazhari` y en contraseá la que nos dio anteriormente `baseball1?` tal que quedaria asi: 'vimsa.local\iabjijalazhari%baseball1?'
+En nuestro caso en dominio hemos puesto `visma.local`, en usuario `iabjijalazhari` y en contraseá la que nos dio anteriormente `baseball1?` tal que quedaria asi: `'vimsa.local\iabjijalazhari%baseball1?'`
 
 
 
