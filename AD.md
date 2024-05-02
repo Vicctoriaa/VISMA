@@ -131,4 +131,21 @@ añadiremos el servidor en el archivo proxychain4.conf, con el comando `nano /et
 
 ![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/1ed3ae3f-a751-456e-acc2-9b053d573269)
 
+Mediante crackmapexec añadiéndole el parámetro ‘smb’ y el segmento de ip, podemos hacer una búsqueda por smb a dispositivos.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/d19d7f88-9746-45b1-a15d-8c17baecc18b)
+
+Una vez encontramos todos los dispositivos, le añadiremos el parámetro “—relay-gen-list” con el nombre “relay.list”, esto hará que todas las ip que encuentre las meterá a un archivo relay.list. Esto nos servirá mas adelante para el ntlmrelay. No podemos usar el responder con proxychains, ya que este requiere estar conectado a la red donde se encuentra el smb directamente.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/189168ee-3ac7-4446-acac-5f552a96be0e)
+
+Pasamos el responder por scp a la maquina aragog
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/a00ecfaa-5340-4f52-a9bc-5052135b5abe)
+
+Lo que deberemos hacer sera descomprimirlo con el comando `tar xvf responder.tar.gz`, entraremos al directorio con el comando `cd (diretorio)`una vez descomprimido. Ejecutamos el responder con los parámetros -wd y como la máquina ISMA-PC tiene una tarea programada, para acceder a un recurso compartido en red llamado \\MYSQLServer , pero este no esta disponible. 
+Ejecutamos el responder con los parámetros -wd y como la máquina ISMA-PC tiene una tarea programada, para acceder a un recurso compartido en red llamado \\MYSQLServer , pero este no esta disponible.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/1e417dbd-4255-4256-93ca-0f20007ee77f)
+
 
